@@ -1,0 +1,18 @@
+  version: "3"
+  services: 
+    api-valorant:
+      image: valorant
+      container_name: valorant
+      ports:
+        - "3000:3000"
+      depends_on:
+        - db-valorant
+    db-valorant:
+      image: dbvalorant
+      container_name: dbvalorant
+      environment:
+        ENV POSTGRES_USER: admin
+        ENV POSTGRES_PASSWORD: 123456
+        ENV POSTGRES_DB: trabalhofinaldb
+      ports:
+      - "5432:5432"

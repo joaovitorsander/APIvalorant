@@ -1,3 +1,16 @@
+CREATE TYPE tipo_partida AS ENUM (
+  'amistoso',
+  'eliminatoria',
+  'final',
+  'semifinal',
+  'quartas de final',
+  'oitavas de final',
+  'showmatch',
+  'qualificatória',
+  'treino'
+);
+
+
 -- TABELA Usuarios
 CREATE TABLE Usuarios (
     usuario_id SERIAL PRIMARY KEY,
@@ -48,7 +61,7 @@ CREATE TABLE Jogadores_Times (
     data_associacao DATE,
     data_desligamento DATE,
     funcao VARCHAR(50),
-    situacao BOOLEAN,
+    situacao VARCHAR(50), --Se ele está treinando, criando conteúdo, férias, etc.
     reserva BOOLEAN
 );
 
@@ -62,7 +75,8 @@ CREATE TABLE Partidas (
     duracao VARCHAR(50),
     data_da_partida DATE,
     rounds_time_1 INTEGER,
-    rounds_time_2 INTEGER
+    rounds_time_2 INTEGER,
+    observacao tipo_partida
 );
 
 -- TABELA Agentes

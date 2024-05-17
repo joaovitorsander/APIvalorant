@@ -14,6 +14,6 @@ const doc = {
 }
 
 const outputFile = './src/docs/swagger.yaml';
-//const endpointsFiles = ['./src/routes/aluno.js'];
+const endpointsFiles = ['./src/routes/usuario.js'];
 
-swaggerAutogen(outputFile, doc);
+swaggerAutogen(outputFile, endpointsFiles, doc);

@@ -9,7 +9,7 @@ const newUser = async (params) => {
     const data_registro = new Date();
 
     try {
-        const result = await db.query(sql_insert, [nome_de_usuario, nick_usuario, imagem_perfil,  data_registro]);
+        const result = await db.query(sql_insert, [nome_de_usuario, nick_usuario, imagem_perfil, senha, data_registro]);
         return result;
     } catch (error) {
         console.error('Erro ao inserir novo usuário:', error);
@@ -17,7 +17,7 @@ const newUser = async (params) => {
     }
 }
 
-const sql_get = `SELECT id, username FROM usuarios`;
+const sql_get = `SELECT usuario_id, nome_de_usuario FROM usuarios`;
 
 const getUser = async () => {
     try {

@@ -1,6 +1,12 @@
+const { validateNewUser } = require('../validates/usuario');
 const usuarioService = require('../services/usuario');
 
 const newUser = async (req, res, next) => {
+    const errors = validateNewUser(req.body);
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    }
+    
     try {
         const retorno = await usuarioService.newUser(req.body);
         res.status(201).json(retorno);

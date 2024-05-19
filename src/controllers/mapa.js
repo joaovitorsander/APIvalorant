@@ -24,6 +24,18 @@ const getMap = async (req, res, next) => {
     }
 };
 
+const patchMap = async (req, res, next) => {
+    try {
+      let params = req.body
+      params.id = req.params.id
+      await mapaService.patchMap(params)
+        .then(ret => res.status(200).send(ret))
+        .catch(err => res.status(500).send(err))
+    } catch (err) {
+      next(err);
+    }
+};
+
 const deleteMap = async (req, res, next) => {
     try {
         await mapaService.deleteMap(req.params);
@@ -35,4 +47,5 @@ const deleteMap = async (req, res, next) => {
 
 module.exports.newMap = newMap
 module.exports.getMap = getMap
+module.exports.patchMap = patchMap
 module.exports.deleteMap = deleteMap

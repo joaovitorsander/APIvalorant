@@ -32,7 +32,55 @@ const getMap = async () => {
     }
 };
 
-const sql_delete = `DELETE FROM Mapas WHERE mapa_id = $1`;
+const sql_patch = `UPDATE mapas SET`;
+
+const patchMap = async (params) => {
+    
+    let fields = '';
+    let binds = [params.id];
+    let countParams = 1;
+
+    if (params.nome_do_mapa) {
+        countParams++;
+        fields += ` nome_do_mapa = $${countParams} `;
+        binds.push(params.nome_do_mapa);
+    }
+    if (params.descricao) {
+        countParams++;
+        fields += (fields ? ',' : '') + ` descricao = $${countParams} `;
+        binds.push(params.descricao);
+    }
+    if (params.imagem_mapa) {
+        countParams++;
+        fields += (fields ? ',' : '') + ` imagem_mapa = $${countParams} `;
+        binds.push(params.imagem_mapa);
+    }
+    if (params.data_lancamento) {
+        countParams++;
+        fields += (fields ? ',' : '') + ` data_lancamento = $${countParams} `;
+        binds.push(params.data_lancamento);
+    }
+    if (params.map_pool) {
+        countParams++;
+        fields += (fields ? ',' : '') + ` map_pool = $${countParams} `;
+        binds.push(params.map_pool);
+    }
+
+    if (fields === '') {
+        throw new Error('Nenhum campo válido para atualizar');
+    }
+
+    let sql = sql_patch + fields + ' WHERE mapa_id = $1 RETURNING *;';
+    try {
+        const result = await db.query(sql, binds);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Erro ao atualizar mapa:', error);
+        throw error;
+    }
+};
+
+const sql_delete = `DELETE FROM mapas WHERE mapa_id = $1`;
 
 const deleteMap = async (params) => {
     try {
@@ -48,4 +96,5 @@ const deleteMap = async (params) => {
 
 module.exports.newMap = newMap
 module.exports.getMap = getMap
+module.exports.patchMap = patchMap
 module.exports.deleteMap = deleteMap

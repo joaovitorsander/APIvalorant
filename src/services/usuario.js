@@ -32,6 +32,49 @@ const getUser = async () => {
     }
 };
 
+const sql_patch = `UPDATE usuarios SET`;
+
+const patchUser = async (params) => {
+    
+    let fields = '';
+    let binds = [params.id];
+    let countParams = 1;
+
+    if (params.nome_de_usuario) {
+        countParams++;
+        fields += ` nome_de_usuario = $${countParams} `;
+        binds.push(params.nome_de_usuario);
+    }
+    if (params.nick_usuario) {
+        countParams++;
+        fields += (fields ? ',' : '') + ` nick_usuario = $${countParams} `;
+        binds.push(params.nick_usuario);
+    }
+    if (params.imagem_perfil) {
+        countParams++;
+        fields += (fields ? ',' : '') + ` imagem_perfil = $${countParams} `;
+        binds.push(params.imagem_perfil);
+    }
+    if (params.senha) {
+        countParams++;
+        fields += (fields ? ',' : '') + ` senha = $${countParams} `;
+        binds.push(params.senha);
+    }
+
+    if (fields === '') {
+        throw new Error('Nenhum campo válido para atualizar');
+    }
+
+    let sql = sql_patch + fields + ' WHERE usuario_id = $1 RETURNING *;';
+    try {
+        const result = await db.query(sql, binds);
+        return result.rows[0];
+    } catch (error) {
+        console.error('Erro ao atualizar usuário:', error);
+        throw error;
+    }
+};
+
 const sql_delete = `DELETE FROM usuarios WHERE usuario_id = $1`;
 
 const deleteUser = async (params) => {
@@ -48,4 +91,5 @@ const deleteUser = async (params) => {
 
 module.exports.newUser = newUser
 module.exports.getUser = getUser
+module.exports.patchUser = patchUser
 module.exports.deleteUser = deleteUser

@@ -24,6 +24,18 @@ const getUser = async (req, res, next) => {
     }
 };
 
+const patchUser = async (req, res, next) => {
+    try {
+      let params = req.body
+      params.id = req.params.id
+      await usuarioService.patchUser(params)
+        .then(ret => res.status(200).send(ret))
+        .catch(err => res.status(500).send(err))
+    } catch (err) {
+      next(err);
+    }
+};
+
 const deleteUser = async (req, res, next) => {
     try {
         await usuarioService.deleteUser(req.params);
@@ -35,4 +47,5 @@ const deleteUser = async (req, res, next) => {
 
 module.exports.newUser = newUser
 module.exports.getUser = getUser
+module.exports.patchUser = patchUser
 module.exports.deleteUser = deleteUser

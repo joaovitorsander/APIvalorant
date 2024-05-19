@@ -12,7 +12,7 @@ const newUser = async (params) => {
         const result = await db.query(sql_insert, [nome_de_usuario, nick_usuario, imagem_perfil, senha, data_registro]);
         return result;
     } catch (error) {
-        console.error('Erro ao inserir novo usuário:', error);
+        console.error('Erro ao inserir um novo usuário:', error);
         throw error;
     }
 }
@@ -27,7 +27,7 @@ const getUser = async () => {
             usuarios: result.rows
         };
     } catch (error) {
-        console.error('Erro ao obter usuários:', error);
+        console.error('Erro ao obter os usuários:', error);
         throw error;
     }
 };
@@ -40,7 +40,7 @@ const deleteUser = async (params) => {
         const result = await db.query(sql_delete, [id]);
         return result.rowCount > 0; // Retorna true se um usuário foi deletado, false caso contrário
     } catch (error) {
-        console.error('Erro ao deletar usuário:', error);
+        console.error('Erro ao deletar o usuário:', error);
         throw error;
     }
 };

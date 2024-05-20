@@ -1,4 +1,4 @@
-const validateNewMapa = (mapData) => {
+const validateNewMap = (mapData) => {
     const errors = [];
 
     if (!mapData.nome_do_mapa) {
@@ -21,5 +21,5 @@ const validateNewMapa = (mapData) => {
 };
 
 module.exports = {
-    validateNewMapa
+    validateNewMap
 };

@@ -1,8 +1,8 @@
-const { validateNewMapa } = require('../validates/mapa');
+const { validateNewMap } = require('../validates/mapa');
 const mapaService = require('../services/mapa');
 
 const newMap = async (req, res, next) => {
-    const errors = validateNewMapa(req.body);
+    const errors = validateNewMap(req.body);
     if (errors.length > 0) {
         return res.status(400).json({ errors });
     }

@@ -19,10 +19,65 @@
   "paths": {
     "/user": {
       "post": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Cria um novo usuário",
         "description": "",
+        "parameters": [
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados para criar um novo usuário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Exemplo Nome"
+                },
+                "nick_usuario": {
+                  "type": "string",
+                  "example": "brabo123"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "exemplo@email.com"
+                },
+                "senha": {
+                  "type": "string",
+                  "example": "senha123"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "201": {
-            "description": "Criado"
+            "description": "Usuário criado com sucesso",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "nome": {
+                  "type": "string",
+                  "example": "Exemplo Nome"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "exemplo@email.com"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -30,10 +85,37 @@
         }
       },
       "get": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Obtém a lista de usuários",
         "description": "",
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Lista de usuários",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "nome": {
+                    "type": "string",
+                    "example": "Exemplo Nome"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "exemplo@email.com"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -42,19 +124,704 @@
       }
     },
     "/user/{id}": {
-      "delete": {
+      "patch": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Atualiza informações de um usuário",
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "integer",
+            "description": "ID do usuário a ser atualizado",
+            "example": 1
+          },
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados do usuário a serem atualizados",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Novo Nome"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "novo@email.com"
+                }
+              }
+            }
           }
         ],
         "responses": {
+          "200": {
+            "description": "Usuário atualizado com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Usuário"
+        ],
+        "summary": "Remove um usuário",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do usuário a ser removido",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário removido com sucesso"
+          },
           "204": {
             "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/team": {
+      "post": {
+        "tags": [
+          "Time"
+        ],
+        "summary": "Cria um novo time",
+        "description": "",
+        "responses": {
+          "201": {
+            "description": "Time criado com sucesso",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "nome_time": {
+                  "type": "string",
+                  "example": "Exemplo FC"
+                },
+                "cidade": {
+                  "type": "string",
+                  "example": "Exemplo City"
+                },
+                "pais": {
+                  "type": "string",
+                  "example": "Exemplo Country"
+                },
+                "fundacao": {
+                  "type": "string",
+                  "example": "01/01/2022"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Time"
+        ],
+        "summary": "Obtém a lista de times",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Lista de times",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "nome_time": {
+                    "type": "string",
+                    "example": "Exemplo FC"
+                  },
+                  "cidade": {
+                    "type": "string",
+                    "example": "Exemplo City"
+                  },
+                  "pais": {
+                    "type": "string",
+                    "example": "Exemplo Country"
+                  },
+                  "fundacao": {
+                    "type": "string",
+                    "example": "01/01/2022"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/team/{id}": {
+      "patch": {
+        "tags": [
+          "Time"
+        ],
+        "summary": "Atualiza informações de um time",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do time a ser atualizado",
+            "example": 1
+          },
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados do time a serem atualizados",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome_time": {
+                  "type": "string",
+                  "example": "Exemplo FC"
+                },
+                "cidade": {
+                  "type": "string",
+                  "example": "Exemplo City"
+                },
+                "pais": {
+                  "type": "string",
+                  "example": "Exemplo Country"
+                },
+                "fundacao": {
+                  "type": "string",
+                  "example": "01/01/2022"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Time atualizado com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Time não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Time"
+        ],
+        "summary": "Remove um time",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do time a ser removido",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Time removido com sucesso"
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Time não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/map": {
+      "post": {
+        "tags": [
+          "Mapa"
+        ],
+        "summary": "Cria um novo mapa",
+        "description": "",
+        "parameters": [
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados para criar um novo mapa",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Exemplo Mapa"
+                },
+                "tamanho": {
+                  "type": "string",
+                  "example": "Pequeno"
+                },
+                "tipo": {
+                  "type": "string",
+                  "example": "Assalto"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Mapa criado com sucesso",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "nome": {
+                  "type": "string",
+                  "example": "Exemplo Mapa"
+                },
+                "tamanho": {
+                  "type": "string",
+                  "example": "Pequeno"
+                },
+                "tipo": {
+                  "type": "string",
+                  "example": "Assalto"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Mapa"
+        ],
+        "summary": "Obtém a lista de mapas",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Lista de mapas",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "nome": {
+                    "type": "string",
+                    "example": "Exemplo Mapa"
+                  },
+                  "tamanho": {
+                    "type": "string",
+                    "example": "Pequeno"
+                  },
+                  "tipo": {
+                    "type": "string",
+                    "example": "Assalto"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/map/{id}": {
+      "patch": {
+        "tags": [
+          "Mapa"
+        ],
+        "summary": "Atualiza informações de um mapa",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do mapa a ser atualizado",
+            "example": 1
+          },
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados do mapa a serem atualizados",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Novo Nome"
+                },
+                "tamanho": {
+                  "type": "string",
+                  "example": "Grande"
+                },
+                "tipo": {
+                  "type": "string",
+                  "example": "Assalto"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mapa atualizado com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Mapa não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Mapa"
+        ],
+        "summary": "Remove um mapa",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do mapa a ser removido",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mapa removido com sucesso"
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Mapa não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/agent": {
+      "post": {
+        "tags": [
+          "Agente"
+        ],
+        "summary": "Insere um agente",
+        "description": "",
+        "parameters": [
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados para inserir um novo agente",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome_agente": {
+                  "type": "string",
+                  "example": "Cypher"
+                },
+                "sexo": {
+                  "type": "string",
+                  "example": "Masculino"
+                },
+                "habilidade1": {
+                  "type": "string",
+                  "example": "fios"
+                },
+                "habilidade2": {
+                  "type": "string",
+                  "example": "camera"
+                },
+                "habilidade3": {
+                  "type": "string",
+                  "example": "jaula"
+                },
+                "ultimate": {
+                  "type": "string",
+                  "example": "acha todos os inimigos"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Agente criado com sucesso",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "nome_agente": {
+                  "type": "string",
+                  "example": "Cypher"
+                },
+                "sexo": {
+                  "type": "string",
+                  "example": "Masculino"
+                },
+                "habilidade1": {
+                  "type": "string",
+                  "example": "fios"
+                },
+                "habilidade2": {
+                  "type": "string",
+                  "example": "camera"
+                },
+                "habilidade3": {
+                  "type": "string",
+                  "example": "jaula"
+                },
+                "ultimate": {
+                  "type": "string",
+                  "example": "acha todos os inimigos"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Agente"
+        ],
+        "summary": "Consulta lista de agentes cadastrados",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Lista de agentes",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "nome_agente": {
+                    "type": "string",
+                    "example": "Cypher"
+                  },
+                  "sexo": {
+                    "type": "string",
+                    "example": "Masculino"
+                  },
+                  "habilidade1": {
+                    "type": "string",
+                    "example": "fios"
+                  },
+                  "habilidade2": {
+                    "type": "string",
+                    "example": "camera"
+                  },
+                  "habilidade3": {
+                    "type": "string",
+                    "example": "jaula"
+                  },
+                  "ultimate": {
+                    "type": "string",
+                    "example": "acha todos os inimigos"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/agent/{id}": {
+      "patch": {
+        "tags": [
+          "Agente"
+        ],
+        "summary": "Atualiza um agente",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Id do agente a ser atualizado",
+            "example": 1
+          },
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados do agente a serem atualizados",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome_agente": {
+                  "type": "string",
+                  "example": "Cypher"
+                },
+                "sexo": {
+                  "type": "string",
+                  "example": "Masculino"
+                },
+                "habilidade1": {
+                  "type": "string",
+                  "example": "fios"
+                },
+                "habilidade2": {
+                  "type": "string",
+                  "example": "camera"
+                },
+                "habilidade3": {
+                  "type": "string",
+                  "example": "jaula"
+                },
+                "ultimate": {
+                  "type": "string",
+                  "example": "acha todos os inimigos"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agente atualizado com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Agente não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Agente"
+        ],
+        "summary": "Deleta um agente",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "Id do agente a ser deletado",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Agente deletado com sucesso"
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Agente não encontrado"
           },
           "500": {
             "description": "Erro Interno do Servidor"

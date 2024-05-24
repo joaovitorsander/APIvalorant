@@ -1,12 +1,16 @@
 const validateNewUser = (userData) => {
     const errors = [];
 
-    if (!userData.nome_de_usuario) {
+    if (!userData.nome) {
         errors.push('O nome de usuário é obrigatório');
     } 
 
     if (!userData.nick_usuario) {
         errors.push('O nick do usuário é obrigatório');
+    }
+
+    if (!userData.email) {
+        errors.push('O email do usuário é obrigatório');
     }
 
     if (!userData.senha) {

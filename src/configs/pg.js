@@ -2,7 +2,7 @@ const { Pool } = require('pg')
 
 const pool = new Pool({
     user: 'admin',
-    host: 'dbvalorant',
+    host: 'localhost',
     database: 'trabfinalDB',
     password: '123456',
     port: 5432,

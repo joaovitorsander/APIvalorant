@@ -828,6 +828,258 @@
           }
         }
       }
+    },
+    "/camp": {
+      "post": {
+        "tags": [
+          "Camp"
+        ],
+        "summary": "Cria um novo camp",
+        "description": "",
+        "parameters": [
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados para criar um novo camp",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "number",
+                  "example": 1
+                },
+                "premiacao": {
+                  "type": "string",
+                  "example": "10.000"
+                },
+                "organizacao": {
+                  "type": "string",
+                  "example": "PGA"
+                },
+                "nome": {
+                  "type": "string",
+                  "example": "Camp Horus Valorant"
+                },
+                "edicao": {
+                  "type": "string",
+                  "example": "3°"
+                },
+                "formato": {
+                  "type": "string",
+                  "example": "eliminatórias"
+                },
+                "DataInicio": {
+                  "type": "string",
+                  "example": "24/05/2024"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Camp criado com sucesso",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "number",
+                  "example": 1
+                },
+                "premiacao": {
+                  "type": "string",
+                  "example": "10.000"
+                },
+                "organizacao": {
+                  "type": "string",
+                  "example": "PGA"
+                },
+                "nome": {
+                  "type": "string",
+                  "example": "Camp Horus Valorant"
+                },
+                "edicao": {
+                  "type": "string",
+                  "example": "3°"
+                },
+                "formato": {
+                  "type": "string",
+                  "example": "eliminatórias"
+                },
+                "DataInicio": {
+                  "type": "string",
+                  "example": "24/05/2024"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Camp"
+        ],
+        "summary": "Obtém a lista de camps",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Lista de camps",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "premiacao": {
+                    "type": "string",
+                    "example": "10.000"
+                  },
+                  "organizacao": {
+                    "type": "string",
+                    "example": "PGA"
+                  },
+                  "nome": {
+                    "type": "string",
+                    "example": "Camp Horus Valorant"
+                  },
+                  "edicao": {
+                    "type": "string",
+                    "example": "3°"
+                  },
+                  "formato": {
+                    "type": "string",
+                    "example": "eliminatórias"
+                  },
+                  "DataInicio": {
+                    "type": "string",
+                    "example": "24/05/2024"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/camp/{id}": {
+      "patch": {
+        "tags": [
+          "Camp"
+        ],
+        "summary": "Atualiza informações de um camp",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do camp a ser atualizado",
+            "example": 1
+          },
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados do camp a serem atualizados",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "number",
+                  "example": 1
+                },
+                "premiacao": {
+                  "type": "string",
+                  "example": "Nova premição"
+                },
+                "organizacao": {
+                  "type": "string",
+                  "example": "Nova organização"
+                },
+                "nome": {
+                  "type": "string",
+                  "example": "Novo nome"
+                },
+                "edicao": {
+                  "type": "string",
+                  "example": "Nova edição"
+                },
+                "formato": {
+                  "type": "string",
+                  "example": "Novo formato"
+                },
+                "DataInicio": {
+                  "type": "string",
+                  "example": "Nova data"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Camp atualizado com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Camp não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Camp"
+        ],
+        "summary": "Remove um camp",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID do camp a ser removido",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Camp removido com sucesso"
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Camp não encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
     }
   }
 }

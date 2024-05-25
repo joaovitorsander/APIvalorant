@@ -1,23 +1,37 @@
 const db = require('../configs/pg')
+const bcrypt = require('bcrypt')
 
 const sql_insert =
     `INSERT INTO usuarios (nome_de_usuario, nick_usuario, imagem_perfil, senha, data_registro)
      VALUES ($1, $2, $3, $4, $5)`
 
-const newUser = async (params) => {
-    const { nome_de_usuario, nick_usuario, imagem_perfil, senha } = params;
-    const data_registro = new Date();
+     const newUser = async (params) => {
+        const { nome_de_usuario, nick_usuario, imagem_perfil, senha } = params;
+        const hashedPassword = await bcrypt.hash(senha, 10);
+        const data_registro = new Date();
+    
+        console.log("Dados a serem inseridos:", { nome_de_usuario, nick_usuario, imagem_perfil, hashedPassword, data_registro });
+    
+        try {
+            const result = await db.query(sql_insert, [nome_de_usuario, nick_usuario, imagem_perfil, hashedPassword, data_registro]);
+            console.log("Resultado da inserção:", result);
+            return result;
+        } catch (error) {
+            console.error('Erro ao inserir um novo usuário:', error);
+            throw error;
+        }
+};
 
-    try {
-        const result = await db.query(sql_insert, [nome_de_usuario, nick_usuario, imagem_perfil, senha, data_registro]);
-        return result;
-    } catch (error) {
-        console.error('Erro ao inserir um novo usuário:', error);
-        throw error;
-    }
-}
+// const userAuthentication = async (params) => {
+//     try {
 
-const sql_get = `SELECT usuario_id, nome_de_usuario FROM usuarios`;
+//     } catch (error) {
+//         console.error('Usuário não autenticado:', error);
+//         throw error;        
+//     }
+// }
+
+const sql_get = `SELECT nome_de_usuario, nick_usuario, senha, data_registro FROM usuarios`;
 
 const getUser = async () => {
     try {

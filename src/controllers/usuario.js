@@ -7,11 +7,13 @@ const newUser = async (req, res, next) => {
         return res.status(400).json({ errors });
     }
     
+    console.log("Dados recebidos no body:", req.body);
+
     try {
         const retorno = await usuarioService.newUser(req.body);
         res.status(201).json(retorno);
     } catch (err) {
-        res.status(500).send(err.message)
+        res.status(500).send(err.message);
     }
 };
 

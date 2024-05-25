@@ -21,7 +21,8 @@ const endpointsFiles = [
     './src/routes/agente.js', 
     './src/routes/camp.js', 
     './src/routes/jogadoresTimes.js',
-    './src/routes/partida.js'
+    './src/routes/partida.js',
+    './src/routes/estatJogador.js'
 ];
 
 swaggerAutogen(outputFile, endpointsFiles, doc);

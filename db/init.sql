@@ -62,7 +62,7 @@ CREATE TABLE Jogadores_Times (
     data_desligamento DATE,
     funcao VARCHAR(50),
     situacao VARCHAR(50), --Se ele está treinando, criando conteúdo, férias, etc.
-    reserva BOOLEAN
+    reserva BOOLEAN --1 True, 0 False
 );
 
 -- TABELA Partidas

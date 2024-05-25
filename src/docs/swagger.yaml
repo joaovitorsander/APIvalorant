@@ -1080,6 +1080,242 @@
           }
         }
       }
+    },
+    "/jogadorestimes": {
+      "post": {
+        "tags": [
+          "JogadoresTimes"
+        ],
+        "summary": "Associa um jogador a um time",
+        "description": "",
+        "parameters": [
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados para associar um jogador a um time",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jogador": {
+                  "type": "number",
+                  "example": 1
+                },
+                "time": {
+                  "type": "number",
+                  "example": 1
+                },
+                "dataAssociacao": {
+                  "type": "string",
+                  "example": "24/05/2024"
+                },
+                "funcao": {
+                  "type": "string",
+                  "example": "IGL"
+                },
+                "situacao": {
+                  "type": "string",
+                  "example": "Treinando"
+                },
+                "reserva": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Associação criada com sucesso",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jogador": {
+                  "type": "number",
+                  "example": 1
+                },
+                "time": {
+                  "type": "number",
+                  "example": 1
+                },
+                "dataAssociacao": {
+                  "type": "string",
+                  "example": "24/05/2024"
+                },
+                "funcao": {
+                  "type": "string",
+                  "example": "IGL"
+                },
+                "situacao": {
+                  "type": "string",
+                  "example": "Treinando"
+                },
+                "reserva": {
+                  "type": "number",
+                  "example": 1
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "JogadoresTimes"
+        ],
+        "summary": "Obtém a lista de associações de jogadores a times",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Lista de associações",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "jogador": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "time": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "dataAssociacao": {
+                    "type": "string",
+                    "example": "24/05/2024"
+                  },
+                  "funcao": {
+                    "type": "string",
+                    "example": "IGL"
+                  },
+                  "situacao": {
+                    "type": "string",
+                    "example": "Treinando"
+                  },
+                  "reserva": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/jogadorestimes/{id}": {
+      "patch": {
+        "tags": [
+          "JogadoresTimes"
+        ],
+        "summary": "Atualiza informações de uma associação de jogador a time",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da associação a ser atualizada",
+            "example": 1
+          },
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados da associação a serem atualizados",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jogador": {
+                  "type": "number",
+                  "example": 1
+                },
+                "time": {
+                  "type": "number",
+                  "example": 1
+                },
+                "dataAssociacao": {
+                  "type": "string",
+                  "example": "24/05/2024"
+                },
+                "funcao": {
+                  "type": "string",
+                  "example": "Novo IGL"
+                },
+                "situacao": {
+                  "type": "string",
+                  "example": "Nova situação"
+                },
+                "reserva": {
+                  "type": "number",
+                  "example": 0
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Associação atualizada com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Associação não encontrada"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "JogadoresTimes"
+        ],
+        "summary": "Remove uma associação de jogador a time",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da associação a ser removida",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Associação removida com sucesso"
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Associação não encontrada"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
     }
   }
 }

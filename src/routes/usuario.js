@@ -11,7 +11,7 @@ module.exports = (app) => {
                 type: 'json',
                 schema: {
                     nome: "Exemplo Nome",
-                    nick_usuario: "brabo123",
+                    nick: "brabo123",
                     email: "exemplo@email.com",
                     senha: "senha123"
                 }

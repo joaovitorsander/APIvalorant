@@ -1,27 +1,27 @@
-const validateNewJogadorTime = (campData) => {
+const validateNewJogadorTime = (jogadoresTimeData) => {
     const errors = [];
 
-    if (!campData.jogador) {
+    if (!jogadoresTimeData.jogador) {
         errors.push('O código do jogador é obrigatório');
     } 
 
-    if (!campData.time) {
+    if (!jogadoresTimeData.time) {
         errors.push('O código do time é obrigatório');
     }
 
-    if (!campData.dataAssociacao) {
+    if (!jogadoresTimeData.dataAssociacao) {
         errors.push('A data de associação no time é obrigatória');
     }
 
-    if (!campData.funcao) {
+    if (!jogadoresTimeData.funcao) {
         errors.push('A função do jogador no time é obrigatória');
     }
 
-    if (!campData.situacao) {
+    if (!jogadoresTimeData.situacao) {
         errors.push('A situação do jogador no time é obrigatório');
     }
 
-    if (!campData.reserva) {
+    if (!jogadoresTimeData.reserva) {
         errors.push('Deve ser inserido se o usuário é reserva ou não');
     }
 

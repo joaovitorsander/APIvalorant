@@ -4,6 +4,7 @@ const Time = require('./time')
 const Agente = require('./agente');
 const Camp = require('./camp')
 const JogadoresTimes = require('./jogadoresTimes')
+const Partida = require('./partida')
 
 module.exports = (app) => {
     Usuario(app)
@@ -12,4 +13,5 @@ module.exports = (app) => {
     Agente(app)
     Camp(app)
     JogadoresTimes(app)
+    Partida(app)
 }

@@ -36,7 +36,7 @@
                   "type": "string",
                   "example": "Exemplo Nome"
                 },
-                "nick_usuario": {
+                "nick": {
                   "type": "string",
                   "example": "brabo123"
                 },
@@ -1310,6 +1310,298 @@
           },
           "404": {
             "description": "Associação não encontrada"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/partida": {
+      "post": {
+        "tags": [
+          "Partida"
+        ],
+        "summary": "Cria uma nova partida",
+        "description": "",
+        "parameters": [
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados para criar uma nova partida",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mapa": {
+                  "type": "number",
+                  "example": 1
+                },
+                "camp": {
+                  "type": "number",
+                  "example": 1
+                },
+                "time1": {
+                  "type": "number",
+                  "example": 1
+                },
+                "time2": {
+                  "type": "number",
+                  "example": 2
+                },
+                "duracao": {
+                  "type": "string",
+                  "example": "1h"
+                },
+                "dataPartida": {
+                  "type": "string",
+                  "example": "25/05/2024"
+                },
+                "roundsTime1": {
+                  "type": "number",
+                  "example": 13
+                },
+                "roundsTime2": {
+                  "type": "number",
+                  "example": 10
+                },
+                "observacao": {
+                  "type": "string",
+                  "example": "deve ser inserido uma dessas opções: [amistoso, eliminatoria, final, semifinal, quartas de final, oitavas de final, showmatch, qualificatória, treino]"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Partida criada com sucesso",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "mapa": {
+                  "type": "number",
+                  "example": 1
+                },
+                "camp": {
+                  "type": "number",
+                  "example": 1
+                },
+                "time1": {
+                  "type": "number",
+                  "example": 1
+                },
+                "time2": {
+                  "type": "number",
+                  "example": 2
+                },
+                "duracao": {
+                  "type": "string",
+                  "example": "1h"
+                },
+                "dataPartida": {
+                  "type": "string",
+                  "example": "25/05/2024"
+                },
+                "roundsTime1": {
+                  "type": "number",
+                  "example": 13
+                },
+                "roundsTime2": {
+                  "type": "number",
+                  "example": 10
+                },
+                "observacao": {
+                  "type": "string",
+                  "example": "eliminatória"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Partida"
+        ],
+        "summary": "Obtém a lista de partidas",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Lista de partidas",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "mapa": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "camp": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "time1": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "time2": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "duracao": {
+                    "type": "string",
+                    "example": "1h"
+                  },
+                  "dataPartida": {
+                    "type": "string",
+                    "example": "25/05/2024"
+                  },
+                  "roundsTime1": {
+                    "type": "number",
+                    "example": 13
+                  },
+                  "roundsTime2": {
+                    "type": "number",
+                    "example": 10
+                  },
+                  "observacao": {
+                    "type": "string",
+                    "example": "eliminatória"
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/partida/{id}": {
+      "patch": {
+        "tags": [
+          "Partida"
+        ],
+        "summary": "Atualiza informações de uma partida",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da partida a ser atualizada",
+            "example": 1
+          },
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados da partida a serem atualizados",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "mapa": {
+                  "type": "number",
+                  "example": 1
+                },
+                "camp": {
+                  "type": "number",
+                  "example": 1
+                },
+                "time1": {
+                  "type": "number",
+                  "example": 1
+                },
+                "time2": {
+                  "type": "number",
+                  "example": 2
+                },
+                "duracao": {
+                  "type": "string",
+                  "example": "2h"
+                },
+                "dataPartida": {
+                  "type": "string",
+                  "example": "26/05/2024"
+                },
+                "roundsTime1": {
+                  "type": "number",
+                  "example": 15
+                },
+                "roundsTime2": {
+                  "type": "number",
+                  "example": 12
+                },
+                "observacao": {
+                  "type": "string",
+                  "example": "final"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partida atualizada com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Partida não encontrada"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Partida"
+        ],
+        "summary": "Remove uma partida",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID da partida a ser removida",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partida removida com sucesso"
+          },
+          "204": {
+            "description": "Nenhum Conteúdo"
+          },
+          "404": {
+            "description": "Partida não encontrada"
           },
           "500": {
             "description": "Erro Interno do Servidor"

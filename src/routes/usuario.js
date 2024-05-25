@@ -10,8 +10,8 @@ module.exports = (app) => {
                 description: 'Dados para criar um novo usuário',
                 type: 'json',
                 schema: {
-                    nome: "Exemplo Nome",
-                    nick: "brabo123",
+                    nome_de_usuario: "Exemplo Nome",
+                    nick_usuario: "brabo123",
                     email: "exemplo@email.com",
                     senha: "senha123"
                 }

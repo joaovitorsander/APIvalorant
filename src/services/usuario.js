@@ -10,26 +10,14 @@ const sql_insert =
         const hashedPassword = await bcrypt.hash(senha, 10);
         const data_registro = new Date();
     
-        console.log("Dados a serem inseridos:", { nome_de_usuario, nick_usuario, imagem_perfil, hashedPassword, data_registro });
-    
         try {
             const result = await db.query(sql_insert, [nome_de_usuario, nick_usuario, imagem_perfil, hashedPassword, data_registro]);
-            console.log("Resultado da inserção:", result);
             return result;
         } catch (error) {
             console.error('Erro ao inserir um novo usuário:', error);
             throw error;
         }
 };
-
-// const userAuthentication = async (params) => {
-//     try {
-
-//     } catch (error) {
-//         console.error('Usuário não autenticado:', error);
-//         throw error;        
-//     }
-// }
 
 const sql_get = `SELECT nome_de_usuario, nick_usuario, senha, data_registro FROM usuarios`;
 
@@ -95,7 +83,7 @@ const deleteUser = async (params) => {
     try {
         const { id } = params;
         const result = await db.query(sql_delete, [id]);
-        return result.rowCount > 0; // Retorna true se um usuário foi deletado, false caso contrário
+        return result.rowCount > 0; 
     } catch (error) {
         console.error('Erro ao deletar o usuário:', error);
         throw error;

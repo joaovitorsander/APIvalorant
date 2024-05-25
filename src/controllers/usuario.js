@@ -6,8 +6,6 @@ const newUser = async (req, res, next) => {
     if (errors.length > 0) {
         return res.status(400).json({ errors });
     }
-    
-    console.log("Dados recebidos no body:", req.body);
 
     try {
         const retorno = await usuarioService.newUser(req.body);

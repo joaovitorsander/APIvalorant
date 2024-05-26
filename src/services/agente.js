@@ -2,21 +2,22 @@ const db = require('../configs/pg')
 
 const sql_insert =
     `INSERT INTO Agentes (nome_agente, sexo, habilidade1, habilidade2, habilidade3, ultimate)
-     VALUES ($1, $2, $3, $4, $5, $6)`
+     VALUES ($1, $2, $3, $4, $5, $6)
+     RETURNING *`
 
 const newAgent = async (params) => {
     const { nome_agente, sexo, habilidade1, habilidade2, habilidade3, ultimate } = params;
 
     try {
         const result = await db.query(sql_insert, [nome_agente, sexo, habilidade1, habilidade2, habilidade3, ultimate]);
-        return result;
+        return result.rows[0];
     } catch (error) {
         console.error('Erro ao inserir um novo agente:', error);
         throw error;
     }
 }
 
-const sql_get = `SELECT nome_agente, ultimate FROM Agentes`;
+const sql_get = `SELECT agente_id, nome_agente, sexo, habilidade1, habilidade2, habilidade3, ultimate FROM Agentes`;
 
 const getAgent = async () => {
     try {
@@ -97,8 +98,14 @@ const deleteAgent = async (params) => {
     }
 };
 
+const checkAgentExistsById = async (agentId) => {
+    const result = await db.query('SELECT 1 FROM agentes WHERE agente_id = $1', [agentId]);
+    return result.rows.length > 0;
+};
+
 
 module.exports.newAgent = newAgent
 module.exports.getAgent = getAgent
 module.exports.patchAgent = patchAgent
 module.exports.deleteAgent = deleteAgent
+module.exports.checkAgentExistsById = checkAgentExistsById

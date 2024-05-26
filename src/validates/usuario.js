@@ -1,6 +1,6 @@
 const db = require('../configs/pg')
 
-const validateUser = (userData) => {
+const validateNewUser = (userData) => {
     const errors = [];
 
     if (!userData.nome_de_usuario) {  
@@ -26,6 +26,6 @@ const checkNickExists = async (nickUsuario) => {
 };
 
 module.exports = {
-    validateUser: validateUser,
+    validateNewUser: validateNewUser,
     checkNickExists: checkNickExists
 };

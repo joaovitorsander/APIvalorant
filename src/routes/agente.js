@@ -104,9 +104,6 @@ module.exports = (app) => {
             type: 'integer',
             example: 1
         }
-        #swagger.responses[200] = {
-            description: 'Agente deletado com sucesso'
-        }
         #swagger.responses[404] = {
             description: 'Agente não encontrado'
         }

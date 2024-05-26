@@ -1,3 +1,5 @@
+const db = require('../configs/pg')
+
 const validateNewAgent = (agentData) => {
     const errors = [];
 
@@ -28,6 +30,12 @@ const validateNewAgent = (agentData) => {
     return errors;
 };
 
+const checkAgentNameExists = async (agentName) => {
+    const result = await db.query('SELECT 1 FROM Agentes WHERE nome_agente = $1', [agentName]);
+    return result.rows.length > 0;
+};
+
 module.exports = {
-    validateNewAgent
+    validateNewAgent,
+    checkAgentNameExists 
 };

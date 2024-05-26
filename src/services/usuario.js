@@ -67,13 +67,7 @@ const patchUser = async (params) => {
         throw new Error('Nenhum campo válido para atualizar');
     }
 
-    const checkUserSql = 'SELECT * FROM usuarios WHERE usuario_id = $1';
     try {
-        const userResult = await db.query(checkUserSql, [params.id]);
-        if (userResult.rows.length === 0) {
-            return null; 
-        }
-
         let sql = sql_patch + fields + ` WHERE usuario_id = $${countParams} RETURNING usuario_id, nome_de_usuario, nick_usuario, imagem_perfil, senha;`;
         binds.push(params.id); 
 
@@ -83,19 +77,12 @@ const patchUser = async (params) => {
         console.error('Erro ao atualizar usuário:', error);
         throw error;
     }
-
 };
 
-const checkUserSql = 'SELECT * FROM usuarios WHERE usuario_id = $1';
 const deleteUserSql = 'DELETE FROM usuarios WHERE usuario_id = $1';
 
 const deleteUser = async (params) => {
     try {
-        const userResult = await db.query(checkUserSql, [params.id]);
-        if (userResult.rows.length === 0) {
-            return null; 
-        }
-
         await db.query(deleteUserSql, [params.id]);
         return true; 
     } catch (error) {
@@ -104,8 +91,14 @@ const deleteUser = async (params) => {
     }
 };
 
+const checkUserExistsById = async (userId) => {
+    const result = await db.query('SELECT 1 FROM usuarios WHERE usuario_id = $1', [userId]);
+    return result.rows.length > 0;
+};
+
 
 module.exports.newUser = newUser
 module.exports.getUser = getUser
 module.exports.patchUser = patchUser
 module.exports.deleteUser = deleteUser
+module.exports.checkUserExistsById = checkUserExistsById

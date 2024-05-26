@@ -855,9 +855,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Agente deletado com sucesso"
-          },
           "204": {
             "description": "Nenhum Conteúdo"
           },

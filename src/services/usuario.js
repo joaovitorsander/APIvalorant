@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt')
 
 const sql_insert =
     `INSERT INTO usuarios (nome_de_usuario, nick_usuario, imagem_perfil, senha, data_registro)
-     VALUES ($1, $2, $3, $4, $5)`
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING usuario_id, nome_de_usuario, nick_usuario, data_registro;`;
 
      const newUser = async (params) => {
         const { nome_de_usuario, nick_usuario, imagem_perfil, senha } = params;
@@ -12,14 +13,14 @@ const sql_insert =
     
         try {
             const result = await db.query(sql_insert, [nome_de_usuario, nick_usuario, imagem_perfil, hashedPassword, data_registro]);
-            return result;
+            return result.rows[0];
         } catch (error) {
             console.error('Erro ao inserir um novo usuário:', error);
             throw error;
         }
 };
 
-const sql_get = `SELECT nome_de_usuario, nick_usuario, senha, data_registro FROM usuarios`;
+const sql_get = `SELECT usuario_id, nome_de_usuario, nick_usuario, data_registro FROM usuarios`;
 
 const getUser = async () => {
     try {
@@ -37,55 +38,68 @@ const getUser = async () => {
 const sql_patch = `UPDATE usuarios SET`;
 
 const patchUser = async (params) => {
-    
     let fields = '';
-    let binds = [params.id];
+    let binds = [];
     let countParams = 1;
 
     if (params.nome_de_usuario) {
-        countParams++;
         fields += ` nome_de_usuario = $${countParams} `;
         binds.push(params.nome_de_usuario);
+        countParams++;
     }
     if (params.nick_usuario) {
-        countParams++;
-        fields += (fields ? ',' : '') + ` nick_usuario = $${countParams} `;
+        fields += (fields ? ', ' : '') + ` nick_usuario = $${countParams} `;
         binds.push(params.nick_usuario);
+        countParams++;
     }
     if (params.imagem_perfil) {
-        countParams++;
-        fields += (fields ? ',' : '') + ` imagem_perfil = $${countParams} `;
+        fields += (fields ? ', ' : '') + ` imagem_perfil = $${countParams} `;
         binds.push(params.imagem_perfil);
+        countParams++;
     }
     if (params.senha) {
-        countParams++;
-        fields += (fields ? ',' : '') + ` senha = $${countParams} `;
+        fields += (fields ? ', ' : '') + ` senha = $${countParams} `;
         binds.push(params.senha);
+        countParams++;
     }
 
     if (fields === '') {
         throw new Error('Nenhum campo válido para atualizar');
     }
 
-    let sql = sql_patch + fields + ' WHERE usuario_id = $1 RETURNING *;';
+    const checkUserSql = 'SELECT * FROM usuarios WHERE usuario_id = $1';
     try {
+        const userResult = await db.query(checkUserSql, [params.id]);
+        if (userResult.rows.length === 0) {
+            return null; 
+        }
+
+        let sql = sql_patch + fields + ` WHERE usuario_id = $${countParams} RETURNING usuario_id, nome_de_usuario, nick_usuario, imagem_perfil, senha;`;
+        binds.push(params.id); 
+
         const result = await db.query(sql, binds);
         return result.rows[0];
     } catch (error) {
         console.error('Erro ao atualizar usuário:', error);
         throw error;
     }
+
 };
 
-const sql_delete = `DELETE FROM usuarios WHERE usuario_id = $1`;
+const checkUserSql = 'SELECT * FROM usuarios WHERE usuario_id = $1';
+const deleteUserSql = 'DELETE FROM usuarios WHERE usuario_id = $1';
 
 const deleteUser = async (params) => {
     try {
-        const { id } = params;
-        const result = await db.query(sql_delete, [id]);
-        return result.rowCount > 0; 
+        const userResult = await db.query(checkUserSql, [params.id]);
+        if (userResult.rows.length === 0) {
+            return null; 
+        }
+
+        await db.query(deleteUserSql, [params.id]);
+        return true; 
     } catch (error) {
-        console.error('Erro ao deletar o usuário:', error);
+        console.error('Erro ao deletar usuário:', error);
         throw error;
     }
 };

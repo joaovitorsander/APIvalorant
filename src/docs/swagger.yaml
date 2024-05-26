@@ -40,9 +40,9 @@
                   "type": "string",
                   "example": "brabo123"
                 },
-                "email": {
+                "imagem_perfil": {
                   "type": "string",
-                  "example": "exemplo@email.com"
+                  "example": "image.png"
                 },
                 "senha": {
                   "type": "string",
@@ -62,13 +62,17 @@
                   "type": "number",
                   "example": 1
                 },
-                "nome": {
+                "nome_de_usuario": {
                   "type": "string",
                   "example": "Exemplo Nome"
                 },
-                "email": {
+                "nick_usuario": {
                   "type": "string",
-                  "example": "exemplo@email.com"
+                  "example": "brabo123"
+                },
+                "data_registro": {
+                  "type": "string",
+                  "example": "26/05/2024"
                 }
               },
               "xml": {
@@ -98,17 +102,21 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "id": {
+                  "usuario_id": {
                     "type": "number",
                     "example": 1
                   },
-                  "nome": {
+                  "nome_de_usuario": {
                     "type": "string",
                     "example": "Exemplo Nome"
                   },
-                  "email": {
+                  "nick_usuario": {
                     "type": "string",
                     "example": "exemplo@email.com"
+                  },
+                  "data_registro": {
+                    "type": "string",
+                    "example": "26/05/2024"
                   }
                 }
               },
@@ -128,7 +136,7 @@
         "tags": [
           "Usuário"
         ],
-        "summary": "Atualiza informações de um usuário",
+        "summary": "Atualiza um usuário",
         "description": "",
         "parameters": [
           {
@@ -146,13 +154,21 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nome": {
+                "nome_de_usuario": {
                   "type": "string",
                   "example": "Novo Nome"
                 },
-                "email": {
+                "nick_usuario": {
                   "type": "string",
-                  "example": "novo@email.com"
+                  "example": "Novo Nick"
+                },
+                "imagem_perfil": {
+                  "type": "string",
+                  "example": "nova_imagem_url"
+                },
+                "senha": {
+                  "type": "string",
+                  "example": "nova_senha"
                 }
               }
             }
@@ -160,16 +176,44 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário atualizado com sucesso"
+            "description": "Usuário atualizado com sucesso",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "nome_de_usuario": {
+                  "type": "string",
+                  "example": "Novo Nome"
+                },
+                "nick_usuario": {
+                  "type": "string",
+                  "example": "Novo Nick"
+                },
+                "imagem_perfil": {
+                  "type": "string",
+                  "example": "nova_imagem_url"
+                },
+                "senha": {
+                  "type": "string",
+                  "example": "nova_senha"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
-            "description": "Dados inválidos"
+            "description": "Solicitação Inválida"
           },
           "404": {
             "description": "Usuário não encontrado"
           },
           "500": {
-            "description": "Erro Interno do Servidor"
+            "description": "Erro ao atualizar usuário"
           }
         }
       },
@@ -190,9 +234,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Usuário removido com sucesso"
-          },
           "204": {
             "description": "Nenhum Conteúdo"
           },
@@ -1892,7 +1933,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nick": {
+                "nick_usuario": {
                   "type": "string",
                   "example": "brabo123"
                 },
@@ -1906,27 +1947,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Usuário logado com sucesso",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number",
-                  "example": 1
-                },
-                "nome": {
-                  "type": "string",
-                  "example": "Exemplo Nome"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "exemplo@email.com"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
+            "description": "Usuário logado com sucesso"
           },
           "401": {
             "description": "Usuário sem permissão"

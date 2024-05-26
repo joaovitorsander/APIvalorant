@@ -12,7 +12,7 @@ module.exports = (app) => {
                 schema: {
                     nome_de_usuario: "Exemplo Nome",
                     nick_usuario: "brabo123",
-                    email: "exemplo@email.com",
+                    imagem_perfil: "image.png",
                     senha: "senha123"
                 }
             }
@@ -20,8 +20,9 @@ module.exports = (app) => {
                 description: 'Usuário criado com sucesso',
                 schema: {
                     id: 1,
-                    nome: "Exemplo Nome",
-                    email: "exemplo@email.com"
+                    nome_de_usuario: "Exemplo Nome",
+                    nick_usuario: "brabo123",
+                    data_registro: "26/05/2024"
                 }
             }
             #swagger.responses[400] = {
@@ -37,9 +38,10 @@ module.exports = (app) => {
                 description: 'Lista de usuários',
                 schema: [
                     {
-                        id: 1,
-                        nome: "Exemplo Nome",
-                        email: "exemplo@email.com"
+                        usuario_id: 1,
+                        nome_de_usuario: "Exemplo Nome",
+                        nick_usuario: "exemplo@email.com",
+                        data_registro: "26/05/2024"
                     }
                 ]
             }
@@ -48,7 +50,7 @@ module.exports = (app) => {
     app.patch('/user/:id', usuariosController.patchUser
         /* 
             #swagger.tags = ["Usuário"]
-            #swagger.summary = 'Atualiza informações de um usuário'
+            #swagger.summary = 'Atualiza um usuário'
             #swagger.parameters['id'] = {
                 in: 'path',
                 description: 'ID do usuário a ser atualizado',
@@ -61,18 +63,27 @@ module.exports = (app) => {
                 description: 'Dados do usuário a serem atualizados',
                 type: 'json',
                 schema: {
-                    nome: "Novo Nome",
-                    email: "novo@email.com"
+                    nome_de_usuario: "Novo Nome",
+                    nick_usuario: "Novo Nick",
+                    imagem_perfil: "nova_imagem_url",
+                    senha: "nova_senha"
                 }
             }
             #swagger.responses[200] = {
-                description: 'Usuário atualizado com sucesso'
-            }
-            #swagger.responses[400] = {
-                description: 'Dados inválidos'
+                description: 'Usuário atualizado com sucesso',
+                schema: {
+                    id: 1,
+                    nome_de_usuario: "Novo Nome",
+                    nick_usuario: "Novo Nick",
+                    imagem_perfil: "nova_imagem_url",
+                    senha: "nova_senha"
+                }
             }
             #swagger.responses[404] = {
                 description: 'Usuário não encontrado'
+            }
+            #swagger.responses[500] = {
+                description: 'Erro ao atualizar usuário'
             }
         */
     )
@@ -86,9 +97,6 @@ module.exports = (app) => {
                 required: true,
                 type: 'integer',
                 example: 1
-            }
-            #swagger.responses[200] = {
-                description: 'Usuário removido com sucesso'
             }
             #swagger.responses[404] = {
                 description: 'Usuário não encontrado'

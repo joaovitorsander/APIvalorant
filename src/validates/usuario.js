@@ -1,4 +1,6 @@
-const validateNewUser = (userData) => {
+const db = require('../configs/pg')
+
+const validateUser = (userData) => {
     const errors = [];
 
     if (!userData.nome_de_usuario) {  
@@ -7,11 +9,7 @@ const validateNewUser = (userData) => {
 
     if (!userData.nick_usuario) {  
         errors.push('O nick do usuário é obrigatório');
-    }
-
-    if (!userData.email) {
-        errors.push('O email do usuário é obrigatório');
-    }
+    } 
 
     if (!userData.senha) {
         errors.push('A senha é obrigatória');
@@ -22,6 +20,12 @@ const validateNewUser = (userData) => {
     return errors;
 };
 
+const checkNickExists = async (nickUsuario) => {
+    const result = await db.query('SELECT 1 FROM usuarios WHERE nick_usuario = $1', [nickUsuario]);
+    return result.rows.length > 0;
+};
+
 module.exports = {
-    validateNewUser
+    validateUser: validateUser,
+    checkNickExists: checkNickExists
 };

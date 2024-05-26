@@ -10,17 +10,12 @@ module.exports = (app) => {
                 description: 'Dados para autenticar o usuário',
                 type: 'json',
                 schema: {
-                    nick: "brabo123",
+                    nick_usuario: "brabo123",
                     senha: "senha123"
                 }
             }
             #swagger.responses[200] = {
-                description: 'Usuário logado com sucesso',
-                schema: {
-                    id: 1,
-                    nome: "Exemplo Nome",
-                    email: "exemplo@email.com"
-                }
+                description: 'Usuário logado com sucesso'
             }
             #swagger.responses[401] = {
                 description: 'Usuário sem permissão'

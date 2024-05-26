@@ -1,8 +1,14 @@
-const { validateNewUser } = require('../validates/usuario');
+const { validateUser } = require('../validates/usuario');
+const { checkNickExists } = require('../validates/usuario')
 const usuarioService = require('../services/usuario');
 
 const newUser = async (req, res, next) => {
-    const errors = validateNewUser(req.body);
+    const nickExists = await checkNickExists(req.body.nick_usuario);
+    if (nickExists) {
+        return res.status(400).json({ errors: ['O nick do usuário já está em uso'] });
+    }
+    
+    const errors = validateUser(req.body);
     if (errors.length > 0) {
         return res.status(400).json({ errors });
     }
@@ -26,22 +32,33 @@ const getUser = async (req, res, next) => {
 
 const patchUser = async (req, res, next) => {
     try {
-      let params = req.body
-      params.id = req.params.id
-      await usuarioService.patchUser(params)
-        .then(ret => res.status(200).send(ret))
-        .catch(err => res.status(500).send(err))
+        let params = req.body;
+        params.id = req.params.id;
+
+        const nickExists = await checkNickExists(req.body.nick_usuario);
+        if (nickExists) {
+            return res.status(400).json({ errors: ['O nick do usuário já está em uso'] });
+        }
+
+        const result = await usuarioService.patchUser(params);
+        if (result === null) {
+            return res.status(404).json({ message: 'Usuário não encontrado' });
+        }
+        res.status(200).json(result);
     } catch (err) {
-      next(err);
+        res.status(500).send(err.message);
     }
 };
 
 const deleteUser = async (req, res, next) => {
     try {
-        await usuarioService.deleteUser(req.params);
-        res.status(204).send();
+        const result = await usuarioService.deleteUser({ id: req.params.id });
+        if (result === null) {
+            return res.status(404).json({ message: 'Usuário não encontrado' });
+        }
+        res.status(204).send(); 
     } catch (err) {
-        res.status(500).send(err.message)
+        res.status(500).send(err.message);
     }
 };
 

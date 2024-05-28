@@ -253,6 +253,34 @@
         ],
         "summary": "Cria um novo time",
         "description": "",
+        "parameters": [
+          {
+            "name": "json",
+            "in": "body",
+            "description": "Dados para criar um novo usuário",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome_time": {
+                  "type": "string",
+                  "example": "Exemplo FC"
+                },
+                "sigla_time": {
+                  "type": "string",
+                  "example": "EXFC"
+                },
+                "imagem_time": {
+                  "type": "string",
+                  "example": "teste.png"
+                },
+                "Observacao": {
+                  "type": "string",
+                  "example": "teste"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Time criado com sucesso",
@@ -267,17 +295,21 @@
                   "type": "string",
                   "example": "Exemplo FC"
                 },
-                "cidade": {
+                "sigla_time": {
                   "type": "string",
-                  "example": "Exemplo City"
+                  "example": "EXFC"
                 },
-                "pais": {
+                "imagem_time": {
                   "type": "string",
-                  "example": "Exemplo Country"
+                  "example": "teste.png"
                 },
-                "fundacao": {
+                "Observacao": {
                   "type": "string",
-                  "example": "01/01/2022"
+                  "example": "teste"
+                },
+                "data_registro": {
+                  "type": "string",
+                  "example": "27/05/2024"
                 }
               },
               "xml": {
@@ -315,17 +347,17 @@
                     "type": "string",
                     "example": "Exemplo FC"
                   },
-                  "cidade": {
+                  "sigla_time": {
                     "type": "string",
-                    "example": "Exemplo City"
+                    "example": "EXFC"
                   },
-                  "pais": {
+                  "Observacao": {
                     "type": "string",
-                    "example": "Exemplo Country"
+                    "example": "teste"
                   },
-                  "fundacao": {
+                  "data_registro": {
                     "type": "string",
-                    "example": "01/01/2022"
+                    "example": "27/05/2024"
                   }
                 }
               },
@@ -367,17 +399,21 @@
                   "type": "string",
                   "example": "Exemplo FC"
                 },
-                "cidade": {
+                "sigla_time": {
                   "type": "string",
-                  "example": "Exemplo City"
+                  "example": "EXFC"
                 },
-                "pais": {
+                "imagem_time": {
                   "type": "string",
-                  "example": "Exemplo Country"
+                  "example": "teste.png"
                 },
-                "fundacao": {
+                "Observacao": {
                   "type": "string",
-                  "example": "01/01/2022"
+                  "example": "teste"
+                },
+                "data_registro": {
+                  "type": "string",
+                  "example": "27/05/2024"
                 }
               }
             }
@@ -385,16 +421,48 @@
         ],
         "responses": {
           "200": {
-            "description": "Time atualizado com sucesso"
+            "description": "Time atualizado com sucesso",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "nome_time": {
+                  "type": "string",
+                  "example": "Exemplo FC"
+                },
+                "sigla_time": {
+                  "type": "string",
+                  "example": "EXFC"
+                },
+                "imagem_time": {
+                  "type": "string",
+                  "example": "teste.png"
+                },
+                "Observacao": {
+                  "type": "string",
+                  "example": "teste"
+                },
+                "data_registro": {
+                  "type": "string",
+                  "example": "27/05/2024"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "400": {
-            "description": "Dados inválidos"
+            "description": "Solicitação Inválida"
           },
           "404": {
             "description": "Time não encontrado"
           },
           "500": {
-            "description": "Erro Interno do Servidor"
+            "description": "Erro ao atualizar time"
           }
         }
       },
@@ -415,9 +483,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Time removido com sucesso"
-          },
           "204": {
             "description": "Nenhum Conteúdo"
           },

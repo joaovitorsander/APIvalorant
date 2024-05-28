@@ -5,14 +5,26 @@ module.exports = (app) => {
         /*   
             #swagger.tags = ["Time"]
             #swagger.summary = 'Cria um novo time'
+            #swagger.parameters['json'] = {
+                in: 'body',
+                description: 'Dados para criar um novo usuário',
+                type: 'json',
+                schema: {
+                    nome_time: "Exemplo FC",
+                    sigla_time: "EXFC",
+                    imagem_time: "teste.png",
+                    Observacao: "teste"
+                }
+            }
             #swagger.responses[201] = {
                 description: 'Time criado com sucesso',
                 schema: {
                     id: 1,
                     nome_time: "Exemplo FC",
-                    cidade: "Exemplo City",
-                    pais: "Exemplo Country",
-                    fundacao: "01/01/2022"
+                    sigla_time: "EXFC",
+                    imagem_time: "teste.png",
+                    Observacao: "teste",
+                    data_registro: "27/05/2024"
                 }
             }
             #swagger.responses[400] = {
@@ -30,9 +42,9 @@ module.exports = (app) => {
                     {
                         id: 1,
                         nome_time: "Exemplo FC",
-                        cidade: "Exemplo City",
-                        pais: "Exemplo Country",
-                        fundacao: "01/01/2022"
+                        sigla_time: "EXFC",
+                        Observacao: "teste",
+                        data_registro: "27/05/2024"
                     }
                 ]
             }
@@ -55,19 +67,28 @@ module.exports = (app) => {
                 type: 'json',
                 schema: {
                     nome_time: "Exemplo FC",
-                    cidade: "Exemplo City",
-                    pais: "Exemplo Country",
-                    fundacao: "01/01/2022"
+                    sigla_time: "EXFC",
+                    imagem_time: "teste.png",
+                    Observacao: "teste",
+                    data_registro: "27/05/2024"
                 }
             }
             #swagger.responses[200] = {
-                description: 'Time atualizado com sucesso'
-            }
-            #swagger.responses[400] = {
-                description: 'Dados inválidos'
+                description: 'Time atualizado com sucesso',
+                schema: {
+                    id: 1,
+                    nome_time: "Exemplo FC",
+                    sigla_time: "EXFC",
+                    imagem_time: "teste.png",
+                    Observacao: "teste",
+                    data_registro: "27/05/2024"
+                }
             }
             #swagger.responses[404] = {
                 description: 'Time não encontrado'
+            }
+            #swagger.responses[500] = {
+                description: 'Erro ao atualizar time'
             }
         */
     )
@@ -81,9 +102,6 @@ module.exports = (app) => {
                 required: true,
                 type: 'integer',
                 example: 1
-            }
-            #swagger.responses[200] = {
-                description: 'Time removido com sucesso'
             }
             #swagger.responses[404] = {
                 description: 'Time não encontrado'

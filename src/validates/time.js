@@ -1,3 +1,5 @@
+const db = require('../configs/pg')
+
 const validateNewTeam = (teamData) => {
     const errors = [];
 
@@ -12,6 +14,12 @@ const validateNewTeam = (teamData) => {
     return errors;
 };
 
+const checkTeamNameExists = async (teamName) => {
+    const result = await db.query('SELECT 1 FROM Times WHERE nome_time = $1', [teamName]);
+    return result.rows.length > 0;
+};
+
 module.exports = {
-    validateNewTeam
+    validateNewTeam,
+    checkTeamNameExists
 };

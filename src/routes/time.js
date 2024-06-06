@@ -84,6 +84,9 @@ module.exports = (app) => {
                     data_registro: "27/05/2024"
                 }
             }
+            #swagger.responses[400] = {
+                description: 'Dados inválidos'
+            }
             #swagger.responses[404] = {
                 description: 'Time não encontrado'
             }

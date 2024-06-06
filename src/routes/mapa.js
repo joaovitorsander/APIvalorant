@@ -10,18 +10,22 @@ module.exports = (app) => {
                 description: 'Dados para criar um novo mapa',
                 type: 'json',
                 schema: {
-                    nome: "Exemplo Mapa",
-                    tamanho: "Pequeno",
-                    tipo: "Assalto"
+                    nome_do_mapa: "Exemplo Mapa",
+                    descricao: "Pequeno",
+                    imagem_mapa: "teste.png",
+                    data_lancamento: "24/05/2024",
+                    map_pool: 1
                 }
             }
             #swagger.responses[201] = {
                 description: 'Mapa criado com sucesso',
                 schema: {
                     id: 1,
-                    nome: "Exemplo Mapa",
-                    tamanho: "Pequeno",
-                    tipo: "Assalto"
+                    nome_do_mapa: "Exemplo Mapa",
+                    descricao: "Pequeno",
+                    imagem_mapa: "teste.png",
+                    data_lancamento: "24/05/2024",
+                    map_pool: 1
                 }
             }
             #swagger.responses[400] = {
@@ -38,9 +42,10 @@ module.exports = (app) => {
                 schema: [
                     {
                         id: 1,
-                        nome: "Exemplo Mapa",
-                        tamanho: "Pequeno",
-                        tipo: "Assalto"
+                        nome_do_mapa: "Exemplo Mapa",
+                        descricao: "Pequeno",
+                        data_lancamento: "24/05/2024",
+                        map_pool: 1
                     }
                 ]
             }
@@ -62,13 +67,12 @@ module.exports = (app) => {
                 description: 'Dados do mapa a serem atualizados',
                 type: 'json',
                 schema: {
-                    nome: "Novo Nome",
-                    tamanho: "Grande",
-                    tipo: "Assalto"
+                    id: 1,
+                    nome_do_mapa: "Exemplo Mapa",
+                    descricao: "Pequeno",
+                    data_lancamento: "24/05/2024",
+                    map_pool: 1
                 }
-            }
-            #swagger.responses[200] = {
-                description: 'Mapa atualizado com sucesso'
             }
             #swagger.responses[400] = {
                 description: 'Dados inválidos'
@@ -88,9 +92,6 @@ module.exports = (app) => {
                 required: true,
                 type: 'integer',
                 example: 1
-            }
-            #swagger.responses[200] = {
-                description: 'Mapa removido com sucesso'
             }
             #swagger.responses[404] = {
                 description: 'Mapa não encontrado'

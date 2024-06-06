@@ -1,5 +1,28 @@
 const db = require('../configs/pg')
 
+const checkExistence = async (table, column, value) => {
+    const query = `SELECT 1 FROM ${table} WHERE ${column} = $1`;
+    const result = await db.query(query, [value]);
+    return result.rowCount > 0;
+}
+
+const validateParams = async (params) => {
+    const { mapa_id, camp_id, time_id_1, time_id_2 } = params;
+
+    if (!await checkExistence('Mapas', 'mapa_id', mapa_id)) {
+        throw new Error(`Mapa com ID ${mapa_id} não existe.`);
+    }
+    if (!await checkExistence('Camp', 'camp_id', camp_id)) {
+        throw new Error(`Campeonato com ID ${camp_id} não existe.`);
+    }
+    if (!await checkExistence('Times', 'time_id', time_id_1)) {
+        throw new Error(`Time com ID ${time_id_1} não existe.`);
+    }
+    if (!await checkExistence('Times', 'time_id', time_id_2)) {
+        throw new Error(`Time com ID ${time_id_2} não existe.`);
+    }
+}
+
 const sql_insert =
     `INSERT INTO Camp (mapa_id, camp_id, time_id_1, time_id_2, duracao, data_da_partida, rounds_time_1, rounds_time_2, observacao)
      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`
@@ -8,6 +31,8 @@ const newPartida = async (params) => {
     const { mapa_id, camp_id, time_id_1, time_id_2, duracao, data_da_partida, rounds_time_1, rounds_time_2, observacao } = params;
 
     try {
+        await validateParams(params);
+        
         const result = await db.query(sql_insert, [mapa_id, camp_id, time_id_1, time_id_2, duracao, data_da_partida, rounds_time_1, rounds_time_2, observacao]);
         return result;
     } catch (error) {

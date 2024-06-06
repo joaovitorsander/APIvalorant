@@ -510,17 +510,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nome": {
+                "nome_do_mapa": {
                   "type": "string",
                   "example": "Exemplo Mapa"
                 },
-                "tamanho": {
+                "descricao": {
                   "type": "string",
                   "example": "Pequeno"
                 },
-                "tipo": {
+                "imagem_mapa": {
                   "type": "string",
-                  "example": "Assalto"
+                  "example": "teste.png"
+                },
+                "data_lancamento": {
+                  "type": "string",
+                  "example": "24/05/2024"
+                },
+                "map_pool": {
+                  "type": "number",
+                  "example": 1
                 }
               }
             }
@@ -536,17 +544,25 @@
                   "type": "number",
                   "example": 1
                 },
-                "nome": {
+                "nome_do_mapa": {
                   "type": "string",
                   "example": "Exemplo Mapa"
                 },
-                "tamanho": {
+                "descricao": {
                   "type": "string",
                   "example": "Pequeno"
                 },
-                "tipo": {
+                "imagem_mapa": {
                   "type": "string",
-                  "example": "Assalto"
+                  "example": "teste.png"
+                },
+                "data_lancamento": {
+                  "type": "string",
+                  "example": "24/05/2024"
+                },
+                "map_pool": {
+                  "type": "number",
+                  "example": 1
                 }
               },
               "xml": {
@@ -580,17 +596,21 @@
                     "type": "number",
                     "example": 1
                   },
-                  "nome": {
+                  "nome_do_mapa": {
                     "type": "string",
                     "example": "Exemplo Mapa"
                   },
-                  "tamanho": {
+                  "descricao": {
                     "type": "string",
                     "example": "Pequeno"
                   },
-                  "tipo": {
+                  "data_lancamento": {
                     "type": "string",
-                    "example": "Assalto"
+                    "example": "24/05/2024"
+                  },
+                  "map_pool": {
+                    "type": "number",
+                    "example": 1
                   }
                 }
               },
@@ -628,17 +648,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nome": {
-                  "type": "string",
-                  "example": "Novo Nome"
+                "id": {
+                  "type": "number",
+                  "example": 1
                 },
-                "tamanho": {
+                "nome_do_mapa": {
                   "type": "string",
-                  "example": "Grande"
+                  "example": "Exemplo Mapa"
                 },
-                "tipo": {
+                "descricao": {
                   "type": "string",
-                  "example": "Assalto"
+                  "example": "Pequeno"
+                },
+                "data_lancamento": {
+                  "type": "string",
+                  "example": "24/05/2024"
+                },
+                "map_pool": {
+                  "type": "number",
+                  "example": 1
                 }
               }
             }
@@ -646,7 +674,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Mapa atualizado com sucesso"
+            "description": "OK"
           },
           "400": {
             "description": "Dados inválidos"
@@ -676,9 +704,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Mapa removido com sucesso"
-          },
           "204": {
             "description": "Nenhum Conteúdo"
           },

@@ -10,7 +10,13 @@ const validateNewMap = (mapData) => {
     }
 
     if (!mapData.data_lancamento) {
-        errors.push('A data de lançamento do mapa é obrigatório');
+        errors.push('A data de lançamento do mapa é obrigatória');
+    } else {
+        const [day, month, year] = mapData.data_lancamento.split('/').map(Number);
+        const date = new Date(`${year}-${month}-${day}`);
+        if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
+            errors.push('A data de lançamento do mapa é inválida');
+        }
     }
 
     if (!mapData.map_pool) {

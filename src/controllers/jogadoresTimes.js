@@ -12,7 +12,7 @@ const newJogadoresTimes = async (req, res, next) => {
         res.status(201).json(retorno);
     } catch (err) {
         res.status(500).send(err.message)
-    }
+    }   
 };
 
 const getJogadoresTimes = async (req, res, next) => {

@@ -41,10 +41,12 @@ const patchMap = async (req, res, next) => {
             }
         }
 
-        const updatedMap = await mapaService.patchMap(mapaId, params);
+        params.id = mapaId; 
+
+        const updatedMap = await mapaService.patchMap(params);
         res.status(200).json(updatedMap);
     } catch (err) {
-        res.status(500).send(err.message)
+        res.status(500).send(err.message);
     }
 };
 

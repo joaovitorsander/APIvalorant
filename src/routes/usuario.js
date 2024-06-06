@@ -48,45 +48,48 @@ module.exports = (app) => {
         */
     )
     app.patch('/user/:id', usuariosController.patchUser
-        /* 
-            #swagger.tags = ["Usuário"]
-            #swagger.summary = 'Atualiza um usuário'
-            #swagger.parameters['id'] = {
-                in: 'path',
-                description: 'ID do usuário a ser atualizado',
-                required: true,
-                type: 'integer',
-                example: 1
+    /* 
+        #swagger.tags = ["Usuário"]
+        #swagger.summary = 'Atualiza um usuário'
+        #swagger.parameters['id'] = {
+            in: 'path',
+            description: 'ID do usuário a ser atualizado',
+            required: true,
+            type: 'integer',
+            example: 1
+        }
+        #swagger.parameters['json'] = {
+            in: 'body',
+            description: 'Dados do usuário a serem atualizados',
+            type: 'json',
+            schema: {
+                nome_de_usuario: "Novo Nome",
+                nick_usuario: "Novo Nick",
+                imagem_perfil: "nova_imagem_url",
+                senha: "nova_senha"
             }
-            #swagger.parameters['json'] = {
-                in: 'body',
-                description: 'Dados do usuário a serem atualizados',
-                type: 'json',
-                schema: {
-                    nome_de_usuario: "Novo Nome",
-                    nick_usuario: "Novo Nick",
-                    imagem_perfil: "nova_imagem_url",
-                    senha: "nova_senha"
-                }
+        }
+        #swagger.responses[200] = {
+            description: 'Usuário atualizado com sucesso',
+            schema: {
+                id: 1,
+                nome_de_usuario: "Novo Nome",
+                nick_usuario: "Novo Nick",
+                imagem_perfil: "nova_imagem_url",
+                senha: "nova_senha"
             }
-            #swagger.responses[200] = {
-                description: 'Usuário atualizado com sucesso',
-                schema: {
-                    id: 1,
-                    nome_de_usuario: "Novo Nome",
-                    nick_usuario: "Novo Nick",
-                    imagem_perfil: "nova_imagem_url",
-                    senha: "nova_senha"
-                }
-            }
-            #swagger.responses[404] = {
-                description: 'Usuário não encontrado'
-            }
-            #swagger.responses[500] = {
-                description: 'Erro ao atualizar usuário'
-            }
-        */
-    )
+        }
+        #swagger.responses[400] = {
+            description: 'Dados inválidos'
+        }
+        #swagger.responses[404] = {
+            description: 'Usuário não encontrado'
+        }
+        #swagger.responses[500] = {
+            description: 'Erro ao atualizar usuário'
+        }
+    */
+)
     app.delete('/user/:id', usuariosController.deleteUser
         /* 
             #swagger.tags = ["Usuário"]

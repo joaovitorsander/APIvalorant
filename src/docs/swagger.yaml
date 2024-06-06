@@ -207,7 +207,7 @@
             }
           },
           "400": {
-            "description": "Solicitação Inválida"
+            "description": "Dados inválidos"
           },
           "404": {
             "description": "Usuário não encontrado"

@@ -67,7 +67,6 @@ module.exports = (app) => {
                 description: 'Dados do mapa a serem atualizados',
                 type: 'json',
                 schema: {
-                    id: 1,
                     nome_do_mapa: "Exemplo Mapa",
                     descricao: "Pequeno",
                     data_lancamento: "24/05/2024",

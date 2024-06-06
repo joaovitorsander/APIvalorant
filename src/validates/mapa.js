@@ -1,3 +1,5 @@
+const db = require('../configs/pg')
+
 const validateNewMap = (mapData) => {
     const errors = [];
 
@@ -19,13 +21,15 @@ const validateNewMap = (mapData) => {
         }
     }
 
-    if (!mapData.map_pool) {
-        errors.push('Map pool é obrigatório');
-    }
-
     return errors;
 };
 
+const checkNameMapExists = async (nome_do_mapa) => {
+    const result = await db.query('SELECT 1 FROM mapas WHERE nome_do_mapa = $1', [nome_do_mapa]);
+    return result.rows.length > 0;
+};
+
 module.exports = {
-    validateNewMap
+    validateNewMap,
+    checkNameMapExists
 };

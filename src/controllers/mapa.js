@@ -1,4 +1,4 @@
-const { validateNewMap } = require('../validates/mapa');
+const { validateNewMap, checkNameMapExists } = require('../validates/mapa');
 const mapaService = require('../services/mapa');
 
 const newMap = async (req, res, next) => {
@@ -26,22 +26,42 @@ const getMap = async (req, res, next) => {
 
 const patchMap = async (req, res, next) => {
     try {
-      let params = req.body
-      params.id = req.params.id
-      await mapaService.patchMap(params)
-        .then(ret => res.status(200).send(ret))
-        .catch(err => res.status(500).send(err))
+        const params = req.body;
+        const mapaId = req.params.id;
+
+        const mapaExists = await mapaService.checkMapExistsById(mapaId);
+        if (!mapaExists) {
+            return res.status(404).json({ message: 'Mapa não encontrado' });
+        }
+
+        if (params.nome_do_mapa) {
+            const nameMapExists = await checkNameMapExists(params.nome_do_mapa);
+            if (nameMapExists) {
+                return res.status(400).json({ errors: ['O nome do mapa já está em uso'] });
+            }
+        }
+
+        const updatedMap = await mapaService.patchMap(mapaId, params);
+        res.status(200).json(updatedMap);
     } catch (err) {
-      next(err);
+        res.status(500).send(err.message)
     }
 };
 
 const deleteMap = async (req, res, next) => {
     try {
-        await mapaService.deleteMap(req.params);
+        const mapId = req.params.id;
+
+        const mapExists = await mapaService.checkMapExistsById(mapId);
+        if (!mapExists) {
+            return res.status(404).json({ message: 'Mapa não encontrado' });
+        }
+
+        await mapaService.deleteMap({ id: mapId });
+
         res.status(204).send();
     } catch (err) {
-        res.status(500).send(err.message)
+        res.status(500).send(err.message);
     }
 };
 

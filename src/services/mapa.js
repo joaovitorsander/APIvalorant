@@ -65,14 +65,13 @@ const patchMap = async (params) => {
         countParams++;
     }
     if (params.data_lancamento) {
-        // Convert the data_lancamento from "dd/MM/yyyy" to "yyyy-MM-dd"
         const [day, month, year] = params.data_lancamento.split('/');
         const formattedDate = new Date(`${year}-${month}-${day}`);
         fields += (fields ? ', ' : '') + ` data_lancamento = $${countParams} `;
         binds.push(formattedDate);
         countParams++;
     }
-    if (params.map_pool) {
+    if (typeof params.map_pool !== 'undefined') {
         fields += (fields ? ', ' : '') + ` map_pool = $${countParams} `;
         binds.push(params.map_pool);
         countParams++;
@@ -93,7 +92,6 @@ const patchMap = async (params) => {
         throw error;
     }
 };
-
 
 const deleteMapSql = 'DELETE FROM mapas WHERE mapa_id = $1';
 

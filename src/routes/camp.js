@@ -10,25 +10,25 @@ module.exports = (app) => {
                 description: 'Dados para criar um novo camp',
                 type: 'json',
                 schema: {
-                    time: 1,
+                    time_id: 1,
                     premiacao: "10.000",
                     organizacao: "PGA",
-                    nome: "Camp Horus Valorant",
+                    nome_camp: "Camp Horus Valorant",
                     edicao: "3°",
                     formato: "eliminatórias",
-                    DataInicio: "24/05/2024"
+                    data_inicio_camp: "2024-06-06"
                 }
             }
             #swagger.responses[201] = {
                 description: 'Camp criado com sucesso',
                 schema: {
-                    time: 1,
+                    time_id: 1,
                     premiacao: "10.000",
                     organizacao: "PGA",
-                    nome: "Camp Horus Valorant",
+                    nome_camp: "Camp Horus Valorant",
                     edicao: "3°",
                     formato: "eliminatórias",
-                    DataInicio: "24/05/2024"
+                    data_inicio_camp: "2024-06-06"
                 }
             }
             #swagger.responses[400] = {
@@ -44,13 +44,13 @@ module.exports = (app) => {
                 description: 'Lista de camps',
                 schema: [
                     {
-                        time: 1,
+                        time_id: 1,
                         premiacao: "10.000",
                         organizacao: "PGA",
-                        nome: "Camp Horus Valorant",
+                        nome_camp: "Camp Horus Valorant",
                         edicao: "3°",
                         formato: "eliminatórias",
-                        DataInicio: "24/05/2024"
+                        data_inicio_camp: "2024-06-06"
                     }
                 ]
             }
@@ -72,13 +72,13 @@ module.exports = (app) => {
                 description: 'Dados do camp a serem atualizados',
                 type: 'json',
                 schema: {
-                    time: 1,
-                    premiacao: "Nova premição",
-                    organizacao: "Nova organização",
-                    nome: "Novo nome",
-                    edicao: "Nova edição",
-                    formato: "Novo formato",
-                    DataInicio: "Nova data"
+                    time_id: 1,
+                    premiacao: "10.000",
+                    organizacao: "PGA",
+                    nome_camp: "Camp Horus Valorant",
+                    edicao: "3°",
+                    formato: "eliminatórias",
+                    data_inicio_camp: "2024-06-06"
                 }
             }
             #swagger.responses[200] = {
@@ -88,7 +88,7 @@ module.exports = (app) => {
                 description: 'Dados inválidos'
             }
             #swagger.responses[404] = {
-                description: 'Camp não encontrado'
+                description: 'Camp ou time não encontrado'
             }
         */
     )
@@ -102,9 +102,6 @@ module.exports = (app) => {
                 required: true,
                 type: 'integer',
                 example: 1
-            }
-            #swagger.responses[200] = {
-                description: 'Camp removido com sucesso'
             }
             #swagger.responses[404] = {
                 description: 'Camp não encontrado'

@@ -1,7 +1,7 @@
 const validateNewCamp = (campData) => {
     const errors = [];
 
-    if (!campData.time) {
+    if (!campData.time_id) {
         errors.push('O código do time é obrigatório');
     } 
 
@@ -13,7 +13,7 @@ const validateNewCamp = (campData) => {
         errors.push('A organização do campeonato é obrigatória');
     }
 
-    if (!campData.nome) {
+    if (!campData.nome_camp) {
         errors.push('O nome do campeonato é obrigatório');
     }
 
@@ -25,7 +25,7 @@ const validateNewCamp = (campData) => {
         errors.push('O formato do campeonato é obrigatório');
     }
 
-    if (!campData.DataInicio) {
+    if (!campData.data_inicio_camp) {
         errors.push('A data de início do campeonato é obrigatória');
     }
 

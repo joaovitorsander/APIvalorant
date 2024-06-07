@@ -968,7 +968,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "time": {
+                "time_id": {
                   "type": "number",
                   "example": 1
                 },
@@ -980,7 +980,7 @@
                   "type": "string",
                   "example": "PGA"
                 },
-                "nome": {
+                "nome_camp": {
                   "type": "string",
                   "example": "Camp Horus Valorant"
                 },
@@ -992,9 +992,9 @@
                   "type": "string",
                   "example": "eliminatórias"
                 },
-                "DataInicio": {
+                "data_inicio_camp": {
                   "type": "string",
-                  "example": "24/05/2024"
+                  "example": "2024-06-06"
                 }
               }
             }
@@ -1006,7 +1006,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "time": {
+                "time_id": {
                   "type": "number",
                   "example": 1
                 },
@@ -1018,7 +1018,7 @@
                   "type": "string",
                   "example": "PGA"
                 },
-                "nome": {
+                "nome_camp": {
                   "type": "string",
                   "example": "Camp Horus Valorant"
                 },
@@ -1030,9 +1030,9 @@
                   "type": "string",
                   "example": "eliminatórias"
                 },
-                "DataInicio": {
+                "data_inicio_camp": {
                   "type": "string",
-                  "example": "24/05/2024"
+                  "example": "2024-06-06"
                 }
               },
               "xml": {
@@ -1042,6 +1042,9 @@
           },
           "400": {
             "description": "Dados inválidos"
+          },
+          "404": {
+            "description": "Não Encontrado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -1062,7 +1065,7 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "time": {
+                  "time_id": {
                     "type": "number",
                     "example": 1
                   },
@@ -1074,7 +1077,7 @@
                     "type": "string",
                     "example": "PGA"
                   },
-                  "nome": {
+                  "nome_camp": {
                     "type": "string",
                     "example": "Camp Horus Valorant"
                   },
@@ -1086,9 +1089,9 @@
                     "type": "string",
                     "example": "eliminatórias"
                   },
-                  "DataInicio": {
+                  "data_inicio_camp": {
                     "type": "string",
-                    "example": "24/05/2024"
+                    "example": "2024-06-06"
                   }
                 }
               },
@@ -1126,33 +1129,33 @@
             "schema": {
               "type": "object",
               "properties": {
-                "time": {
+                "time_id": {
                   "type": "number",
                   "example": 1
                 },
                 "premiacao": {
                   "type": "string",
-                  "example": "Nova premição"
+                  "example": "10.000"
                 },
                 "organizacao": {
                   "type": "string",
-                  "example": "Nova organização"
+                  "example": "PGA"
                 },
-                "nome": {
+                "nome_camp": {
                   "type": "string",
-                  "example": "Novo nome"
+                  "example": "Camp Horus Valorant"
                 },
                 "edicao": {
                   "type": "string",
-                  "example": "Nova edição"
+                  "example": "3°"
                 },
                 "formato": {
                   "type": "string",
-                  "example": "Novo formato"
+                  "example": "eliminatórias"
                 },
-                "DataInicio": {
+                "data_inicio_camp": {
                   "type": "string",
-                  "example": "Nova data"
+                  "example": "2024-06-06"
                 }
               }
             }
@@ -1166,7 +1169,7 @@
             "description": "Dados inválidos"
           },
           "404": {
-            "description": "Camp não encontrado"
+            "description": "Camp ou time não encontrado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -1190,9 +1193,6 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Camp removido com sucesso"
-          },
           "204": {
             "description": "Nenhum Conteúdo"
           },

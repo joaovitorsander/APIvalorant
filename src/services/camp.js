@@ -1,20 +1,31 @@
-const db = require('../configs/pg')
+const db = require('../configs/pg');
 
-const sql_insert =
-    `INSERT INTO Camp (time_id, premiacao, organizacao, nome_camp, edicao, formato, data_inicio_camp)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
+const checkTeamExistsById = async (teamId) => {
+    const result = await db.query('SELECT * FROM Times WHERE time_id = $1', [teamId]);
+    return result.rowCount > 0;
+};
+
+const checkCampExistsById = async (campId) => {
+    const result = await db.query('SELECT * FROM Camp WHERE camp_id = $1', [campId]);
+    return result.rowCount > 0;
+};
+
+const sql_insert = `
+    INSERT INTO Camp (time_id, premiacao, organizacao, nome_camp, edicao, formato, data_inicio_camp)
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    RETURNING time_id, premiacao, organizacao, nome_camp, edicao, formato, data_inicio_camp`;
 
 const newCamp = async (params) => {
     const { time_id, premiacao, organizacao, nome_camp, edicao, formato, data_inicio_camp } = params;
 
     try {
         const result = await db.query(sql_insert, [time_id, premiacao, organizacao, nome_camp, edicao, formato, data_inicio_camp]);
-        return result;
+        return result.rows[0];
     } catch (error) {
         console.error('Erro ao inserir um novo camp:', error);
         throw error;
     }
-}
+};
 
 const sql_get = `SELECT premiacao, nome_camp FROM Camp`;
 
@@ -23,7 +34,7 @@ const getCamp = async () => {
         const result = await db.query(sql_get, []);
         return {
             total: result.rows.length,
-            usuarios: result.rows
+            campeonatos: result.rows
         };
     } catch (error) {
         console.error('Erro ao obter o camp:', error);
@@ -34,7 +45,6 @@ const getCamp = async () => {
 const sql_patch = `UPDATE Camp SET`;
 
 const patchCamp = async (params) => {
-    
     let fields = '';
     let binds = [params.id];
     let countParams = 1;
@@ -102,8 +112,9 @@ const deleteCamp = async (params) => {
     }
 };
 
-
-module.exports.newCamp = newCamp
-module.exports.getCamp = getCamp
-module.exports.patchCamp = patchCamp
-module.exports.deleteCamp = deleteCamp
+module.exports.newCamp = newCamp;
+module.exports.getCamp = getCamp;
+module.exports.patchCamp = patchCamp;
+module.exports.deleteCamp = deleteCamp;
+module.exports.checkTeamExistsById = checkTeamExistsById;
+module.exports.checkCampExistsById = checkCampExistsById;

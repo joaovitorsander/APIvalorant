@@ -1453,56 +1453,56 @@
         }
       }
     },
-    "/partida": {
+    "/partidas": {
       "post": {
         "tags": [
-          "Partida"
+          "Partidas"
         ],
-        "summary": "Cria uma nova partida",
+        "summary": "Insere uma nova partida",
         "description": "",
         "parameters": [
           {
             "name": "json",
             "in": "body",
-            "description": "Dados para criar uma nova partida",
+            "description": "Dados para inserir uma nova partida",
             "schema": {
               "type": "object",
               "properties": {
-                "mapa": {
+                "mapa_id": {
                   "type": "number",
                   "example": 1
                 },
-                "camp": {
+                "camp_id": {
                   "type": "number",
                   "example": 1
                 },
-                "time1": {
+                "time_id_1": {
                   "type": "number",
                   "example": 1
                 },
-                "time2": {
+                "time_id_2": {
                   "type": "number",
                   "example": 2
                 },
                 "duracao": {
                   "type": "string",
-                  "example": "1h"
+                  "example": "30 minutos"
                 },
-                "dataPartida": {
+                "data_da_partida": {
                   "type": "string",
-                  "example": "25/05/2024"
+                  "example": "2024-08-06"
                 },
-                "roundsTime1": {
+                "rounds_time_1": {
                   "type": "number",
-                  "example": 13
+                  "example": 16
                 },
-                "roundsTime2": {
+                "rounds_time_2": {
                   "type": "number",
                   "example": 10
                 },
                 "observacao": {
                   "type": "string",
-                  "example": "deve ser inserido uma dessas opções: [amistoso, eliminatoria, final, semifinal, quartas de final, oitavas de final, showmatch, qualificatória, treino]"
+                  "example": "final"
                 }
               }
             }
@@ -1514,45 +1514,41 @@
             "schema": {
               "type": "object",
               "properties": {
-                "id": {
+                "mapa_id": {
                   "type": "number",
                   "example": 1
                 },
-                "mapa": {
+                "camp_id": {
                   "type": "number",
                   "example": 1
                 },
-                "camp": {
+                "time_id_1": {
                   "type": "number",
                   "example": 1
                 },
-                "time1": {
-                  "type": "number",
-                  "example": 1
-                },
-                "time2": {
+                "time_id_2": {
                   "type": "number",
                   "example": 2
                 },
                 "duracao": {
                   "type": "string",
-                  "example": "1h"
+                  "example": "30 minutos"
                 },
-                "dataPartida": {
+                "data_da_partida": {
                   "type": "string",
-                  "example": "25/05/2024"
+                  "example": "2024-08-06"
                 },
-                "roundsTime1": {
+                "rounds_time_1": {
                   "type": "number",
-                  "example": 13
+                  "example": 16
                 },
-                "roundsTime2": {
+                "rounds_time_2": {
                   "type": "number",
                   "example": 10
                 },
                 "observacao": {
                   "type": "string",
-                  "example": "eliminatória"
+                  "example": "final"
                 }
               },
               "xml": {
@@ -1563,6 +1559,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "404": {
+            "description": "Mapa, camp ou time não encontrado"
+          },
           "500": {
             "description": "Erro Interno do Servidor"
           }
@@ -1570,7 +1569,7 @@
       },
       "get": {
         "tags": [
-          "Partida"
+          "Partidas"
         ],
         "summary": "Obtém a lista de partidas",
         "description": "",
@@ -1582,45 +1581,45 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "id": {
+                  "partida_id": {
                     "type": "number",
                     "example": 1
-                  },
-                  "mapa": {
-                    "type": "number",
-                    "example": 1
-                  },
-                  "camp": {
-                    "type": "number",
-                    "example": 1
-                  },
-                  "time1": {
-                    "type": "number",
-                    "example": 1
-                  },
-                  "time2": {
-                    "type": "number",
-                    "example": 2
                   },
                   "duracao": {
                     "type": "string",
-                    "example": "1h"
+                    "example": "30 minutos"
                   },
-                  "dataPartida": {
+                  "data_da_partida": {
                     "type": "string",
-                    "example": "25/05/2024"
+                    "example": "2024-08-06"
                   },
-                  "roundsTime1": {
+                  "rounds_time_1": {
                     "type": "number",
-                    "example": 13
+                    "example": 16
                   },
-                  "roundsTime2": {
+                  "rounds_time_2": {
                     "type": "number",
                     "example": 10
                   },
                   "observacao": {
                     "type": "string",
-                    "example": "eliminatória"
+                    "example": "final"
+                  },
+                  "nome_do_mapa": {
+                    "type": "string",
+                    "example": "Dust II"
+                  },
+                  "nome_camp": {
+                    "type": "string",
+                    "example": "Major"
+                  },
+                  "time1": {
+                    "type": "string",
+                    "example": "Team Liquid"
+                  },
+                  "time2": {
+                    "type": "string",
+                    "example": "Furia"
                   }
                 }
               },
@@ -1635,10 +1634,10 @@
         }
       }
     },
-    "/partida/{id}": {
+    "/partidas/{id}": {
       "patch": {
         "tags": [
-          "Partida"
+          "Partidas"
         ],
         "summary": "Atualiza informações de uma partida",
         "description": "",
@@ -1658,37 +1657,37 @@
             "schema": {
               "type": "object",
               "properties": {
-                "mapa": {
+                "mapa_id": {
                   "type": "number",
                   "example": 1
                 },
-                "camp": {
+                "camp_id": {
                   "type": "number",
                   "example": 1
                 },
-                "time1": {
+                "time_id_1": {
                   "type": "number",
                   "example": 1
                 },
-                "time2": {
+                "time_id_2": {
                   "type": "number",
                   "example": 2
                 },
                 "duracao": {
                   "type": "string",
-                  "example": "2h"
+                  "example": "30 minutos"
                 },
-                "dataPartida": {
+                "data_da_partida": {
                   "type": "string",
-                  "example": "26/05/2024"
+                  "example": "2024-08-06"
                 },
-                "roundsTime1": {
+                "rounds_time_1": {
                   "type": "number",
-                  "example": 15
+                  "example": 16
                 },
-                "roundsTime2": {
+                "rounds_time_2": {
                   "type": "number",
-                  "example": 12
+                  "example": 10
                 },
                 "observacao": {
                   "type": "string",
@@ -1706,7 +1705,7 @@
             "description": "Dados inválidos"
           },
           "404": {
-            "description": "Partida não encontrada"
+            "description": "Mapa, camp, time ou partida não encontrado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -1715,7 +1714,7 @@
       },
       "delete": {
         "tags": [
-          "Partida"
+          "Partidas"
         ],
         "summary": "Remove uma partida",
         "description": "",
@@ -1730,11 +1729,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Partida removida com sucesso"
-          },
           "204": {
-            "description": "Nenhum Conteúdo"
+            "description": "Partida removida com sucesso"
           },
           "404": {
             "description": "Partida não encontrada"

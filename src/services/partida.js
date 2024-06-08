@@ -1,57 +1,67 @@
-const db = require('../configs/pg')
+const db = require('../configs/pg');
 
-const checkExistence = async (table, column, value) => {
-    const query = `SELECT 1 FROM ${table} WHERE ${column} = $1`;
-    const result = await db.query(query, [value]);
-    return result.rowCount > 0;
-}
+const sql_insert = `
+    INSERT INTO Partidas (mapa_id, camp_id, time_id_1, time_id_2, duracao, data_da_partida, rounds_time_1, rounds_time_2, observacao)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    RETURNING *`;
 
-const validateParams = async (params) => {
-    const { mapa_id, camp_id, time_id_1, time_id_2 } = params;
+    const newPartida = async (params) => {
+        const { mapa_id, camp_id, time_id_1, time_id_2, duracao, data_da_partida, rounds_time_1, rounds_time_2, observacao } = params;
+    
+        const time1Exists = await db.query('SELECT 1 FROM Times WHERE time_id = $1', [time_id_1]);
+        const time2Exists = await db.query('SELECT 1 FROM Times WHERE time_id = $1', [time_id_2]);
+        const mapaExists = await db.query('SELECT 1 FROM Mapas WHERE mapa_id = $1', [mapa_id]);
+        const campExists = await db.query('SELECT 1 FROM Camp WHERE camp_id = $1', [camp_id]);
+    
+        if (time1Exists.rowCount === 0) {
+            const error = new Error('Time 1 não encontrado');
+            error.code = 404;
+            throw error;
+        }
+        if (time2Exists.rowCount === 0) {
+            const error = new Error('Time 2 não encontrado');
+            error.code = 404;
+            throw error;
+        }
+        if (mapaExists.rowCount === 0) {
+            const error = new Error('Mapa não encontrado');
+            error.code = 404;
+            throw error;
+        }
+        if (campExists.rowCount === 0) {
+            const error = new Error('Camp não encontrado');
+            error.code = 404;
+            throw error;
+        }
+    
+        try {
+            const result = await db.query(sql_insert, [mapa_id, camp_id, time_id_1, time_id_2, duracao, data_da_partida, rounds_time_1, rounds_time_2, observacao]);
+            return result.rows[0];
+        } catch (error) {
+            console.error('Erro ao inserir uma partida:', error);
+            throw error;
+        }
+    };
+    
 
-    if (!await checkExistence('Mapas', 'mapa_id', mapa_id)) {
-        throw new Error(`Mapa com ID ${mapa_id} não existe.`);
-    }
-    if (!await checkExistence('Camp', 'camp_id', camp_id)) {
-        throw new Error(`Campeonato com ID ${camp_id} não existe.`);
-    }
-    if (!await checkExistence('Times', 'time_id', time_id_1)) {
-        throw new Error(`Time com ID ${time_id_1} não existe.`);
-    }
-    if (!await checkExistence('Times', 'time_id', time_id_2)) {
-        throw new Error(`Time com ID ${time_id_2} não existe.`);
-    }
-}
+const sql_get = `
+    SELECT p.partida_id, p.duracao, p.data_da_partida, p.rounds_time_1, p.rounds_time_2, p.observacao, 
+           m.nome_do_mapa, c.nome_camp, t1.nome_time AS time1, t2.nome_time AS time2
+    FROM Partidas p
+    JOIN Mapas m ON p.mapa_id = m.mapa_id
+    JOIN Camp c ON p.camp_id = c.camp_id
+    JOIN Times t1 ON p.time_id_1 = t1.time_id
+    JOIN Times t2 ON p.time_id_2 = t2.time_id`;
 
-const sql_insert =
-    `INSERT INTO Camp (mapa_id, camp_id, time_id_1, time_id_2, duracao, data_da_partida, rounds_time_1, rounds_time_2, observacao)
-     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`
-
-const newPartida = async (params) => {
-    const { mapa_id, camp_id, time_id_1, time_id_2, duracao, data_da_partida, rounds_time_1, rounds_time_2, observacao } = params;
-
+const getPartidas = async () => {
     try {
-        await validateParams(params);
-        
-        const result = await db.query(sql_insert, [mapa_id, camp_id, time_id_1, time_id_2, duracao, data_da_partida, rounds_time_1, rounds_time_2, observacao]);
-        return result;
-    } catch (error) {
-        console.error('Erro ao inserir uma nova partida:', error);
-        throw error;
-    }
-}
-
-const sql_get = `SELECT duracao, data_da_partida FROM Partidas`;
-
-const getPartida = async () => {
-    try {
-        const result = await db.query(sql_get, []);
+        const result = await db.query(sql_get);
         return {
             total: result.rows.length,
-            usuarios: result.rows
+            partidas: result.rows
         };
     } catch (error) {
-        console.error('Erro ao obter a partida:', error);
+        console.error('Erro ao obter partidas:', error);
         throw error;
     }
 };
@@ -59,31 +69,67 @@ const getPartida = async () => {
 const sql_patch = `UPDATE Partidas SET`;
 
 const patchPartida = async (params) => {
-    
+    const partidaExists = await db.query('SELECT 1 FROM Partidas WHERE partida_id = $1', [params.id]);
+    if (partidaExists.rowCount === 0) {
+        const error = new Error('Partida não encontrada');
+        error.code = 404;
+        throw error;
+    }
+
     let fields = '';
     let binds = [params.id];
     let countParams = 1;
 
-    if (params.mapa_id) {
-        countParams++;
-        fields += ` mapa_id = $${countParams} `;
-        binds.push(params.mapa_id);
+    try {
+        if (params.mapa_id) {
+            const mapaExists = await db.query('SELECT 1 FROM Mapas WHERE mapa_id = $1', [params.mapa_id]);
+            if (mapaExists.rowCount === 0) {
+                const error = new Error('Mapa não encontrado');
+                error.code = 404;
+                throw error;
+            }
+            countParams++;
+            fields += ` mapa_id = $${countParams} `;
+            binds.push(params.mapa_id);
+        }
+        if (params.camp_id) {
+            const campExists = await db.query('SELECT 1 FROM Camp WHERE camp_id = $1', [params.camp_id]);
+            if (campExists.rowCount === 0) {
+                const error = new Error('Camp não encontrado');
+                error.code = 404;
+                throw error;
+            }
+            countParams++;
+            fields += (fields ? ',' : '') + ` camp_id = $${countParams} `;
+            binds.push(params.camp_id);
+        }
+        if (params.time_id_1) {
+            const time1Exists = await db.query('SELECT 1 FROM Times WHERE time_id = $1', [params.time_id_1]);
+            if (time1Exists.rowCount === 0) {
+                const error = new Error('Time 1 não encontrado');
+                error.code = 404;
+                throw error;
+            }
+            countParams++;
+            fields += (fields ? ',' : '') + ` time_id_1 = $${countParams} `;
+            binds.push(params.time_id_1);
+        }
+        if (params.time_id_2) {
+            const time2Exists = await db.query('SELECT 1 FROM Times WHERE time_id = $1', [params.time_id_2]);
+            if (time2Exists.rowCount === 0) {
+                const error = new Error('Time 2 não encontrado');
+                error.code = 404;
+                throw error;
+            }
+            countParams++;
+            fields += (fields ? ',' : '') + ` time_id_2 = $${countParams} `;
+            binds.push(params.time_id_2);
+        }
+    } catch (error) {
+        console.error('Erro ao validar IDs:', error);
+        throw error;
     }
-    if (params.camp_id) {
-        countParams++;
-        fields += (fields ? ',' : '') + ` camp_id = $${countParams} `;
-        binds.push(params.camp_id);
-    }
-    if (params.time_id_1) {
-        countParams++;
-        fields += (fields ? ',' : '') + ` time_id_1 = $${countParams} `;
-        binds.push(params.time_id_1);
-    }
-    if (params.time_id_2) {
-        countParams++;
-        fields += (fields ? ',' : '') + ` time_id_2 = $${countParams} `;
-        binds.push(params.time_id_2);
-    }
+
     if (params.duracao) {
         countParams++;
         fields += (fields ? ',' : '') + ` duracao = $${countParams} `;
@@ -99,13 +145,11 @@ const patchPartida = async (params) => {
         fields += (fields ? ',' : '') + ` rounds_time_1 = $${countParams} `;
         binds.push(params.rounds_time_1);
     }
-
     if (params.rounds_time_2) {
         countParams++;
         fields += (fields ? ',' : '') + ` rounds_time_2 = $${countParams} `;
         binds.push(params.rounds_time_2);
     }
-
     if (params.observacao) {
         countParams++;
         fields += (fields ? ',' : '') + ` observacao = $${countParams} `;
@@ -113,7 +157,9 @@ const patchPartida = async (params) => {
     }
 
     if (fields === '') {
-        throw new Error('Nenhum campo válido para atualizar');
+        const error = new Error('Nenhum campo válido para atualizar');
+        error.code = 400;
+        throw error;
     }
 
     let sql = sql_patch + fields + ' WHERE partida_id = $1 RETURNING *;';
@@ -126,21 +172,24 @@ const patchPartida = async (params) => {
     }
 };
 
-const sql_delete = `DELETE FROM Partidas WHERE partida_id = $1`;
+
+const sql_delete = `DELETE FROM Partidas WHERE partida_id = $1 RETURNING *`;
 
 const deletePartida = async (params) => {
     try {
         const { id } = params;
         const result = await db.query(sql_delete, [id]);
-        return result.rowCount > 0;
+        if (result.rowCount === 0) {
+            throw new Error('Partida não encontrada');
+        }
+        return true;
     } catch (error) {
         console.error('Erro ao deletar a partida:', error);
         throw error;
     }
 };
 
-
-module.exports.newPartida = newPartida
-module.exports.getCamp = getPartida
-module.exports.patchPartida = patchPartida
-module.exports.deletePartida = deletePartida
+module.exports.newPartida = newPartida;
+module.exports.getPartidas = getPartidas;
+module.exports.patchPartida = patchPartida;
+module.exports.deletePartida = deletePartida;

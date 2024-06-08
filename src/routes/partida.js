@@ -1,72 +1,75 @@
-const partidaController = require('../controllers/partida')
+const partidasController = require('../controllers/partida');
 
 module.exports = (app) => {
-    app.post('/partida', partidaController.newPartida
+    app.post('/partidas', partidasController.newPartida
         /*   
-            #swagger.tags = ["Partida"]
-            #swagger.summary = 'Cria uma nova partida'
+            #swagger.tags = ["Partidas"]
+            #swagger.summary = 'Insere uma nova partida'
             #swagger.parameters['json'] = {
                 in: 'body',
-                description: 'Dados para criar uma nova partida',
+                description: 'Dados para inserir uma nova partida',
                 type: 'json',
                 schema: {
-                    mapa: 1,
-                    camp: 1,
-                    time1: 1,
-                    time2: 2,
-                    duracao: "1h",
-                    dataPartida: "25/05/2024",
-                    roundsTime1: 13,
-                    roundsTime2: 10,
-                    observacao: "deve ser inserido uma dessas opções: [amistoso, eliminatoria, final, semifinal, quartas de final, oitavas de final, showmatch, qualificatória, treino]"
+                    mapa_id: 1,
+                    camp_id: 1,
+                    time_id_1: 1,
+                    time_id_2: 2,
+                    duracao: "30 minutos",
+                    data_da_partida: "2024-08-06",
+                    rounds_time_1: 16,
+                    rounds_time_2: 10,
+                    observacao: "final"
                 }
             }
             #swagger.responses[201] = {
                 description: 'Partida criada com sucesso',
                 schema: {
-                    id: 1,
-                    mapa: 1,
-                    camp: 1,
-                    time1: 1,
-                    time2: 2,
-                    duracao: "1h",
-                    dataPartida: "25/05/2024",
-                    roundsTime1: 13,
-                    roundsTime2: 10,
-                    observacao: "eliminatória"
+                    mapa_id: 1,
+                    camp_id: 1,
+                    time_id_1: 1,
+                    time_id_2: 2,
+                    duracao: "30 minutos",
+                    data_da_partida: "2024-08-06",
+                    rounds_time_1: 16,
+                    rounds_time_2: 10,
+                    observacao: "final"
                 }
             }
             #swagger.responses[400] = {
-                description: 'Dados inválidos'
+                description: 'Dados inválidos',
+                }
+            }
+            #swagger.responses[404] = {
+                description: 'Mapa, camp ou time não encontrado'
             }
         */
-    )
-    app.get('/partida', partidaController.getPartida
+    );
+    app.get('/partidas', partidasController.getPartidas
         /* 
-            #swagger.tags = ["Partida"]
+            #swagger.tags = ["Partidas"]
             #swagger.summary = 'Obtém a lista de partidas'
             #swagger.responses[200] = {
                 description: 'Lista de partidas',
                 schema: [
                     {
-                        id: 1,
-                        mapa: 1,
-                        camp: 1,
-                        time1: 1,
-                        time2: 2,
-                        duracao: "1h",
-                        dataPartida: "25/05/2024",
-                        roundsTime1: 13,
-                        roundsTime2: 10,
-                        observacao: "eliminatória"
+                        partida_id: 1,
+                        duracao: "30 minutos",
+                        data_da_partida: "2024-08-06",
+                        rounds_time_1: 16,
+                        rounds_time_2: 10,
+                        observacao: "final",
+                        nome_do_mapa: "Dust II",
+                        nome_camp: "Major",
+                        time1: "Team Liquid",
+                        time2: "Furia"
                     }
                 ]
             }
         */
-    )
-    app.patch('/partida/:id', partidaController.patchPartida
+    );
+    app.patch('/partidas/:id', partidasController.patchPartida
         /* 
-            #swagger.tags = ["Partida"]
+            #swagger.tags = ["Partidas"]
             #swagger.summary = 'Atualiza informações de uma partida'
             #swagger.parameters['id'] = {
                 in: 'path',
@@ -80,14 +83,14 @@ module.exports = (app) => {
                 description: 'Dados da partida a serem atualizados',
                 type: 'json',
                 schema: {
-                    mapa: 1,
-                    camp: 1,
-                    time1: 1,
-                    time2: 2,
-                    duracao: "2h",
-                    dataPartida: "26/05/2024",
-                    roundsTime1: 15,
-                    roundsTime2: 12,
+                    mapa_id: 1,
+                    camp_id: 1,
+                    time_id_1: 1,
+                    time_id_2: 2,
+                    duracao: "30 minutos",
+                    data_da_partida: "2024-08-06",
+                    rounds_time_1: 16,
+                    rounds_time_2: 10,
                     observacao: "final"
                 }
             }
@@ -95,16 +98,16 @@ module.exports = (app) => {
                 description: 'Partida atualizada com sucesso'
             }
             #swagger.responses[400] = {
-                description: 'Dados inválidos'
+                description: 'Dados inválidos',
             }
             #swagger.responses[404] = {
-                description: 'Partida não encontrada'
+                description: 'Mapa, camp, time ou partida não encontrado'
             }
         */
-    )
-    app.delete('/partida/:id', partidaController.deletePartida
+    );
+    app.delete('/partidas/:id', partidasController.deletePartida
         /* 
-            #swagger.tags = ["Partida"]
+            #swagger.tags = ["Partidas"]
             #swagger.summary = 'Remove uma partida'
             #swagger.parameters['id'] = {
                 in: 'path',
@@ -113,12 +116,12 @@ module.exports = (app) => {
                 type: 'integer',
                 example: 1
             }
-            #swagger.responses[200] = {
+            #swagger.responses[204] = {
                 description: 'Partida removida com sucesso'
             }
             #swagger.responses[404] = {
                 description: 'Partida não encontrada'
             }
         */
-    )
-}
+    );
+};

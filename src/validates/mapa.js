@@ -21,6 +21,10 @@ const validateNewMap = (mapData) => {
         }
     }
 
+    if (mapData.map_pool == nul) {
+        errors.push('Deve ser inserido se o mapa estão no map pool ou não, 0-Não, 1-Sim');
+    }
+
     return errors;
 };
 

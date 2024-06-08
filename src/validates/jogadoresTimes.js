@@ -1,15 +1,15 @@
 const validateNewJogadorTime = (jogadoresTimeData) => {
     const errors = [];
 
-    if (!jogadoresTimeData.jogador) {
+    if (!jogadoresTimeData.jogador_id) {
         errors.push('O código do jogador é obrigatório');
     } 
 
-    if (!jogadoresTimeData.time) {
+    if (!jogadoresTimeData.time_id) {
         errors.push('O código do time é obrigatório');
     }
 
-    if (!jogadoresTimeData.dataAssociacao) {
+    if (!jogadoresTimeData.data_associacao) {
         errors.push('A data de associação no time é obrigatória');
     }
 
@@ -21,8 +21,8 @@ const validateNewJogadorTime = (jogadoresTimeData) => {
         errors.push('A situação do jogador no time é obrigatório');
     }
 
-    if (!jogadoresTimeData.reserva) {
-        errors.push('Deve ser inserido se o usuário é reserva ou não');
+    if (jogadoresTimeData.reserva == null) {
+        errors.push('Deve ser inserido se o jogador é reserva ou não, 0-Não, 1-Sim');
     }
 
     return errors;

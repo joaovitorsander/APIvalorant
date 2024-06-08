@@ -24,7 +24,7 @@ const getAgent = async () => {
         const result = await db.query(sql_get, []);
         return {
             total: result.rows.length,
-            usuarios: result.rows
+            agentes: result.rows
         };
     } catch (error) {
         console.error('Erro ao obter os agentes:', error);

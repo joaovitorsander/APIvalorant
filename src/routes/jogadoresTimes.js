@@ -1,4 +1,4 @@
-const jogadoresTimesController = require('../controllers/jogadoresTimes')
+const jogadoresTimesController = require('../controllers/jogadoresTimes');
 
 module.exports = (app) => {
     app.post('/jogadorestimes', jogadoresTimesController.newJogadoresTimes
@@ -10,9 +10,10 @@ module.exports = (app) => {
                 description: 'Dados para associar um jogador a um time',
                 type: 'json',
                 schema: {
-                    jogador: 1,
-                    time: 1,
-                    dataAssociacao: "24/05/2024",
+                    jogador_id: 1,
+                    time_id: 1,
+                    data_associacao: "2024-08-06",
+                    data_desligamento: "2024-08-06",
                     funcao: "IGL",
                     situacao: "Treinando",
                     reserva: 1
@@ -21,19 +22,23 @@ module.exports = (app) => {
             #swagger.responses[201] = {
                 description: 'Associação criada com sucesso',
                 schema: {
-                    jogador: 1,
-                    time: 1,
-                    dataAssociacao: "24/05/2024",
+                    jogador_id: 1,
+                    time_id: 1,
+                    data_associacao: "2024-08-06",
+                    data_desligamento: "2024-08-06",
                     funcao: "IGL",
                     situacao: "Treinando",
                     reserva: 1
                 }
             }
             #swagger.responses[400] = {
-                description: 'Dados inválidos'
+                description: 'Dados inválidos',
+            }
+            #swagger.responses[404] = {
+                description: 'Jogador ou time não encontrado'
             }
         */
-    )
+    );
     app.get('/jogadorestimes', jogadoresTimesController.getJogadoresTimes
         /* 
             #swagger.tags = ["JogadoresTimes"]
@@ -42,17 +47,17 @@ module.exports = (app) => {
                 description: 'Lista de associações',
                 schema: [
                     {
-                        jogador: 1,
-                        time: 1,
-                        dataAssociacao: "24/05/2024",
+                        jogador_id: 1,
                         funcao: "IGL",
                         situacao: "Treinando",
-                        reserva: 1
+                        reserva: 1,
+                        nick: "brabo123",
+                        nome_time: "furia"
                     }
                 ]
             }
         */
-    )
+    );
     app.patch('/jogadorestimes/:id', jogadoresTimesController.patchJogadoresTimes
         /* 
             #swagger.tags = ["JogadoresTimes"]
@@ -69,25 +74,26 @@ module.exports = (app) => {
                 description: 'Dados da associação a serem atualizados',
                 type: 'json',
                 schema: {
-                    jogador: 1,
-                    time: 1,
-                    dataAssociacao: "24/05/2024",
-                    funcao: "Novo IGL",
-                    situacao: "Nova situação",
-                    reserva: 0
+                    jogador_id: 1,
+                    time_id: 1,
+                    data_associacao: "2024-08-06",
+                    data_desligamento: "2024-08-06",
+                    funcao: "IGL",
+                    situacao: "Treinando",
+                    reserva: 1
                 }
             }
             #swagger.responses[200] = {
                 description: 'Associação atualizada com sucesso'
             }
             #swagger.responses[400] = {
-                description: 'Dados inválidos'
+                description: 'Dados inválidos',
             }
             #swagger.responses[404] = {
-                description: 'Associação não encontrada'
+                description: 'Jogador, time ou associação não encontrada'
             }
         */
-    )
+    );
     app.delete('/jogadorestimes/:id', jogadoresTimesController.deleteJogadoresTimes
         /* 
             #swagger.tags = ["JogadoresTimes"]
@@ -99,12 +105,12 @@ module.exports = (app) => {
                 type: 'integer',
                 example: 1
             }
-            #swagger.responses[200] = {
+            #swagger.responses[204] = {
                 description: 'Associação removida com sucesso'
             }
             #swagger.responses[404] = {
                 description: 'Associação não encontrada'
             }
         */
-    )
-}
+    );
+};

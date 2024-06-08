@@ -1220,17 +1220,21 @@
             "schema": {
               "type": "object",
               "properties": {
-                "jogador": {
+                "jogador_id": {
                   "type": "number",
                   "example": 1
                 },
-                "time": {
+                "time_id": {
                   "type": "number",
                   "example": 1
                 },
-                "dataAssociacao": {
+                "data_associacao": {
                   "type": "string",
-                  "example": "24/05/2024"
+                  "example": "2024-08-06"
+                },
+                "data_desligamento": {
+                  "type": "string",
+                  "example": "2024-08-06"
                 },
                 "funcao": {
                   "type": "string",
@@ -1254,17 +1258,21 @@
             "schema": {
               "type": "object",
               "properties": {
-                "jogador": {
+                "jogador_id": {
                   "type": "number",
                   "example": 1
                 },
-                "time": {
+                "time_id": {
                   "type": "number",
                   "example": 1
                 },
-                "dataAssociacao": {
+                "data_associacao": {
                   "type": "string",
-                  "example": "24/05/2024"
+                  "example": "2024-08-06"
+                },
+                "data_desligamento": {
+                  "type": "string",
+                  "example": "2024-08-06"
                 },
                 "funcao": {
                   "type": "string",
@@ -1287,6 +1295,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "404": {
+            "description": "Jogador ou time não encontrado"
+          },
           "500": {
             "description": "Erro Interno do Servidor"
           }
@@ -1306,17 +1317,9 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "jogador": {
+                  "jogador_id": {
                     "type": "number",
                     "example": 1
-                  },
-                  "time": {
-                    "type": "number",
-                    "example": 1
-                  },
-                  "dataAssociacao": {
-                    "type": "string",
-                    "example": "24/05/2024"
                   },
                   "funcao": {
                     "type": "string",
@@ -1329,6 +1332,14 @@
                   "reserva": {
                     "type": "number",
                     "example": 1
+                  },
+                  "nick": {
+                    "type": "string",
+                    "example": "brabo123"
+                  },
+                  "nome_time": {
+                    "type": "string",
+                    "example": "furia"
                   }
                 }
               },
@@ -1366,29 +1377,33 @@
             "schema": {
               "type": "object",
               "properties": {
-                "jogador": {
+                "jogador_id": {
                   "type": "number",
                   "example": 1
                 },
-                "time": {
+                "time_id": {
                   "type": "number",
                   "example": 1
                 },
-                "dataAssociacao": {
+                "data_associacao": {
                   "type": "string",
-                  "example": "24/05/2024"
+                  "example": "2024-08-06"
+                },
+                "data_desligamento": {
+                  "type": "string",
+                  "example": "2024-08-06"
                 },
                 "funcao": {
                   "type": "string",
-                  "example": "Novo IGL"
+                  "example": "IGL"
                 },
                 "situacao": {
                   "type": "string",
-                  "example": "Nova situação"
+                  "example": "Treinando"
                 },
                 "reserva": {
                   "type": "number",
-                  "example": 0
+                  "example": 1
                 }
               }
             }
@@ -1402,7 +1417,7 @@
             "description": "Dados inválidos"
           },
           "404": {
-            "description": "Associação não encontrada"
+            "description": "Jogador, time ou associação não encontrada"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -1426,11 +1441,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Associação removida com sucesso"
-          },
           "204": {
-            "description": "Nenhum Conteúdo"
+            "description": "Associação removida com sucesso"
           },
           "404": {
             "description": "Associação não encontrada"

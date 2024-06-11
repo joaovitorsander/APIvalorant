@@ -1756,15 +1756,15 @@
             "schema": {
               "type": "object",
               "properties": {
-                "jogador": {
+                "jog_id": {
                   "type": "number",
                   "example": 1
                 },
-                "partida": {
+                "partida_id": {
                   "type": "number",
                   "example": 1
                 },
-                "agente": {
+                "agente_id": {
                   "type": "number",
                   "example": 1
                 },
@@ -1798,15 +1798,15 @@
             "schema": {
               "type": "object",
               "properties": {
-                "jogador": {
+                "jog_id": {
                   "type": "number",
                   "example": 1
                 },
-                "partida": {
+                "partida_id": {
                   "type": "number",
                   "example": 1
                 },
-                "agente": {
+                "agente_id": {
                   "type": "number",
                   "example": 1
                 },
@@ -1839,6 +1839,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "404": {
+            "description": "Jogador, partida ou agente não encontrado"
+          },
           "500": {
             "description": "Erro Interno do Servidor"
           }
@@ -1858,15 +1861,7 @@
               "items": {
                 "type": "object",
                 "properties": {
-                  "jogador": {
-                    "type": "number",
-                    "example": 1
-                  },
-                  "partida": {
-                    "type": "number",
-                    "example": 1
-                  },
-                  "agente": {
+                  "estat_jog_id": {
                     "type": "number",
                     "example": 1
                   },
@@ -1889,6 +1884,18 @@
                   "defuses": {
                     "type": "number",
                     "example": 3
+                  },
+                  "jogador": {
+                    "type": "string",
+                    "example": "carla_souza"
+                  },
+                  "partida": {
+                    "type": "string",
+                    "example": "2024-08-06T03:00:00.000Z"
+                  },
+                  "agente": {
+                    "type": "string",
+                    "example": "Cypher"
                   }
                 }
               },
@@ -1916,7 +1923,7 @@
             "in": "path",
             "required": true,
             "type": "integer",
-            "description": "ID do jogador cujas estatísticas serão atualizadas",
+            "description": "ID da estatística a ser atualizada",
             "example": 1
           },
           {
@@ -1926,15 +1933,15 @@
             "schema": {
               "type": "object",
               "properties": {
-                "jogador": {
+                "jog_id": {
                   "type": "number",
                   "example": 1
                 },
-                "partida": {
+                "partida_id": {
                   "type": "number",
                   "example": 1
                 },
-                "agente": {
+                "agente_id": {
                   "type": "number",
                   "example": 1
                 },
@@ -1970,7 +1977,7 @@
             "description": "Dados inválidos"
           },
           "404": {
-            "description": "Jogador não encontrado"
+            "description": "Estatística, jogador, partida ou agente não encontrado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -1989,19 +1996,16 @@
             "in": "path",
             "required": true,
             "type": "integer",
-            "description": "ID do jogador cujas estatísticas serão removidas",
+            "description": "ID da estatística a ser removida",
             "example": 1
           }
         ],
         "responses": {
-          "200": {
-            "description": "Estatísticas do jogador removidas com sucesso"
-          },
           "204": {
             "description": "Nenhum Conteúdo"
           },
           "404": {
-            "description": "Jogador não encontrado"
+            "description": "Estatística não encontrada"
           },
           "500": {
             "description": "Erro Interno do Servidor"

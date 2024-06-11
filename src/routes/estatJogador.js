@@ -1,7 +1,7 @@
-const estatJogadorController = require('../controllers/estatJogador')
+const estatJogadorController = require('../controllers/estatJogador');
 
 module.exports = (app) => {
-    app.post('/statsjogador', estatJogadorController.newStatJogador
+    app.post('/statsjogador', estatJogadorController.newEstatistica
         /*   
             #swagger.tags = ["Estatísticas Jogador"]
             #swagger.summary = 'Insere estatísticas do jogador'
@@ -10,9 +10,9 @@ module.exports = (app) => {
                 description: 'Dados para inserir as estatísticas do jogador',
                 type: 'json',
                 schema: {
-                    jogador: 1,
-                    partida: 1,
-                    agente: 1,
+                    jog_id: 1,
+                    partida_id: 1,
+                    agente_id: 1,
                     kills: 20,
                     mortes: 18,
                     assistencias: 1,
@@ -23,9 +23,9 @@ module.exports = (app) => {
             #swagger.responses[201] = {
                 description: 'Estatísticas do jogador inseridas com sucesso',
                 schema: {
-                    jogador: 1,
-                    partida: 1,
-                    agente: 1,
+                    jog_id: 1,
+                    partida_id: 1,
+                    agente_id: 1,
                     kills: 20,
                     mortes: 18,
                     assistencias: 1,
@@ -36,9 +36,12 @@ module.exports = (app) => {
             #swagger.responses[400] = {
                 description: 'Dados inválidos'
             }
+            #swagger.responses[404] = {
+                description: 'Jogador, partida ou agente não encontrado'
+            }
         */
-    )
-    app.get('/statsjogador', estatJogadorController.getStatJogador
+    );
+    app.get('/statsjogador', estatJogadorController.getEstatisticas
         /* 
             #swagger.tags = ["Estatísticas Jogador"]
             #swagger.summary = 'Obtém as estatísticas dos jogadores'
@@ -46,26 +49,27 @@ module.exports = (app) => {
                 description: 'Lista das estatísticas dos jogadores',
                 schema: [
                     {
-                        jogador: 1,
-                        partida: 1,
-                        agente: 1,
-                        kills: 20,
-                        mortes: 18,
-                        assistencias: 1,
-                        plants: 4,
-                        defuses: 3
+                    "estat_jog_id": 1,
+                    "kills": 20,
+                    "mortes": 18,
+                    "assistencias": 1,
+                    "plants": 4,
+                    "defuses": 3,
+                    "jogador": "carla_souza",
+                    "partida": "2024-08-06T03:00:00.000Z",
+                    "agente": "Cypher"
                     }
                 ]
             }
         */
-    )
-    app.patch('/statsjogador/:id', estatJogadorController.patchStatJogador
+    );
+    app.patch('/statsjogador/:id', estatJogadorController.patchEstatistica
         /* 
             #swagger.tags = ["Estatísticas Jogador"]
             #swagger.summary = 'Atualiza as estatísticas de um jogador'
             #swagger.parameters['id'] = {
                 in: 'path',
-                description: 'ID do jogador cujas estatísticas serão atualizadas',
+                description: 'ID da estatística a ser atualizada',
                 required: true,
                 type: 'integer',
                 example: 1
@@ -75,9 +79,9 @@ module.exports = (app) => {
                 description: 'Dados das estatísticas do jogador a serem atualizadas',
                 type: 'json',
                 schema: {
-                    jogador: 1,
-                    partida: 1,
-                    agente: 1,
+                    jog_id: 1,
+                    partida_id: 1,
+                    agente_id: 1,
                     kills: 20,
                     mortes: 18,
                     assistencias: 1,
@@ -92,27 +96,24 @@ module.exports = (app) => {
                 description: 'Dados inválidos'
             }
             #swagger.responses[404] = {
-                description: 'Jogador não encontrado'
+                description: 'Estatística, jogador, partida ou agente não encontrado'
             }
         */
-    )
-    app.delete('/statsjogador/:id', estatJogadorController.deleteStatJogador
+    );
+    app.delete('/statsjogador/:id', estatJogadorController.deleteEstatistica
         /* 
             #swagger.tags = ["Estatísticas Jogador"]
             #swagger.summary = 'Remove as estatísticas de um jogador'
             #swagger.parameters['id'] = {
                 in: 'path',
-                description: 'ID do jogador cujas estatísticas serão removidas',
+                description: 'ID da estatística a ser removida',
                 required: true,
                 type: 'integer',
                 example: 1
             }
-            #swagger.responses[200] = {
-                description: 'Estatísticas do jogador removidas com sucesso'
-            }
             #swagger.responses[404] = {
-                description: 'Jogador não encontrado'
+                description: 'Estatística não encontrada'
             }
         */
-    )
-}
+    );
+};

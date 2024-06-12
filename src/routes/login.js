@@ -20,6 +20,9 @@ module.exports = (app) => {
             #swagger.responses[401] = {
                 description: 'Usuário sem permissão'
             }
+            #swagger.responses[404] = {
+                description: 'Usuário não encontrado'
+            }
             #swagger.responses[500] = {
                 description: 'Erro de servidor'
             }

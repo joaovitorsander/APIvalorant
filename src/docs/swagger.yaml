@@ -1839,6 +1839,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Jogador, partida ou agente não encontrado"
           },
@@ -1903,6 +1906,9 @@
                 "name": "main"
               }
             }
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -1976,6 +1982,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Estatística, jogador, partida ou agente não encontrado"
           },
@@ -2003,6 +2012,9 @@
         "responses": {
           "204": {
             "description": "Nenhum Conteúdo"
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Estatística não encontrada"
@@ -2046,6 +2058,9 @@
           },
           "401": {
             "description": "Usuário sem permissão"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
           },
           "500": {
             "description": "Erro de servidor"

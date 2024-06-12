@@ -1,7 +1,8 @@
 const estatJogadorController = require('../controllers/estatJogador');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 module.exports = (app) => {
-    app.post('/statsjogador', estatJogadorController.newEstatistica
+    app.post('/statsjogador', authMiddleware, estatJogadorController.newEstatistica
         /*   
             #swagger.tags = ["Estatísticas Jogador"]
             #swagger.summary = 'Insere estatísticas do jogador'
@@ -41,7 +42,7 @@ module.exports = (app) => {
             }
         */
     );
-    app.get('/statsjogador', estatJogadorController.getEstatisticas
+    app.get('/statsjogador', authMiddleware, estatJogadorController.getEstatisticas
         /* 
             #swagger.tags = ["Estatísticas Jogador"]
             #swagger.summary = 'Obtém as estatísticas dos jogadores'
@@ -63,7 +64,7 @@ module.exports = (app) => {
             }
         */
     );
-    app.patch('/statsjogador/:id', estatJogadorController.patchEstatistica
+    app.patch('/statsjogador/:id', authMiddleware, estatJogadorController.patchEstatistica
         /* 
             #swagger.tags = ["Estatísticas Jogador"]
             #swagger.summary = 'Atualiza as estatísticas de um jogador'
@@ -100,7 +101,7 @@ module.exports = (app) => {
             }
         */
     );
-    app.delete('/statsjogador/:id', estatJogadorController.deleteEstatistica
+    app.delete('/statsjogador/:id', authMiddleware, estatJogadorController.deleteEstatistica
         /* 
             #swagger.tags = ["Estatísticas Jogador"]
             #swagger.summary = 'Remove as estatísticas de um jogador'

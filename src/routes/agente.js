@@ -1,7 +1,8 @@
 const agentsController = require('../controllers/agente')
+const authMiddleware = require('../middlewares/authMiddleware');
 
 module.exports = (app) => {
-    app.post('/agent', agentsController.newAgent
+    app.post('/agent', authMiddleware, agentsController.newAgent
     /*   
         #swagger.tags = ["Agente"]
         #swagger.summary = 'Insere um agente'
@@ -36,7 +37,7 @@ module.exports = (app) => {
     */
     )
 
-    app.get('/agent', agentsController.getAgent
+    app.get('/agent', authMiddleware, agentsController.getAgent
     /* 
         #swagger.tags = ["Agente"]
         #swagger.summary = 'Consulta lista de agentes cadastrados'
@@ -57,7 +58,7 @@ module.exports = (app) => {
     */
     )
 
-    app.patch('/agent/:id', agentsController.patchAgent
+    app.patch('/agent/:id', authMiddleware, agentsController.patchAgent
     /* 
         #swagger.tags = ["Agente"]
         #swagger.summary = 'Atualiza um agente'
@@ -93,7 +94,7 @@ module.exports = (app) => {
     */
     )
 
-    app.delete('/agent/:id', agentsController.deleteAgent
+    app.delete('/agent/:id', authMiddleware, agentsController.deleteAgent
     /* 
         #swagger.tags = ["Agente"]
         #swagger.summary = 'Deleta um agente'

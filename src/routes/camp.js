@@ -1,7 +1,8 @@
 const campsController = require('../controllers/camp')
+const authMiddleware = require('../middlewares/authMiddleware');
 
 module.exports = (app) => {
-    app.post('/camp', campsController.newCamp
+    app.post('/camp', authMiddleware, campsController.newCamp
         /*   
             #swagger.tags = ["Camp"]
             #swagger.summary = 'Cria um novo camp'
@@ -36,7 +37,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.get('/camp', campsController.getCamp
+    app.get('/camp', authMiddleware, campsController.getCamp
         /* 
             #swagger.tags = ["Camp"]
             #swagger.summary = 'Obtém a lista de camps'
@@ -56,7 +57,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.patch('/camp/:id', campsController.patchCamp
+    app.patch('/camp/:id', authMiddleware, campsController.patchCamp
         /* 
             #swagger.tags = ["Camp"]
             #swagger.summary = 'Atualiza informações de um camp'
@@ -92,7 +93,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.delete('/camp/:id', campsController.deleteCamp
+    app.delete('/camp/:id', authMiddleware, campsController.deleteCamp
         /* 
             #swagger.tags = ["Camp"]
             #swagger.summary = 'Remove um camp'

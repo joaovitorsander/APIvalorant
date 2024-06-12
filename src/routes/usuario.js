@@ -1,7 +1,8 @@
 const usuariosController = require('../controllers/usuario')
+const authMiddleware = require('../middlewares/authMiddleware');
 
 module.exports = (app) => {
-    app.post('/user', usuariosController.newUser
+    app.post('/user', authMiddleware, usuariosController.newUser
         /*   
             #swagger.tags = ["Usuário"]
             #swagger.summary = 'Cria um novo usuário'
@@ -30,7 +31,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.get('/user', usuariosController.getUser
+    app.get('/user', authMiddleware, usuariosController.getUser
         /* 
             #swagger.tags = ["Usuário"]
             #swagger.summary = 'Obtém a lista de usuários'
@@ -47,7 +48,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.patch('/user/:id', usuariosController.patchUser
+    app.patch('/user/:id', authMiddleware, usuariosController.patchUser
     /* 
         #swagger.tags = ["Usuário"]
         #swagger.summary = 'Atualiza um usuário'
@@ -90,7 +91,7 @@ module.exports = (app) => {
         }
     */
 )
-    app.delete('/user/:id', usuariosController.deleteUser
+    app.delete('/user/:id', authMiddleware, usuariosController.deleteUser
         /* 
             #swagger.tags = ["Usuário"]
             #swagger.summary = 'Remove um usuário'

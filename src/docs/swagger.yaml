@@ -83,6 +83,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "500": {
             "description": "Erro Interno do Servidor"
           }
@@ -124,6 +127,9 @@
                 "name": "main"
               }
             }
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -209,6 +215,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Usuário não encontrado"
           },
@@ -236,6 +245,9 @@
         "responses": {
           "204": {
             "description": "Nenhum Conteúdo"
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Usuário não encontrado"
@@ -320,6 +332,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "500": {
             "description": "Erro Interno do Servidor"
           }
@@ -365,6 +380,9 @@
                 "name": "main"
               }
             }
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -458,6 +476,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Time não encontrado"
           },
@@ -485,6 +506,9 @@
         "responses": {
           "204": {
             "description": "Nenhum Conteúdo"
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Time não encontrado"
@@ -573,6 +597,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "500": {
             "description": "Erro Interno do Servidor"
           }
@@ -618,6 +645,9 @@
                 "name": "main"
               }
             }
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -675,6 +705,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Mapa não encontrado"
           },
@@ -702,6 +735,9 @@
         "responses": {
           "204": {
             "description": "Nenhum Conteúdo"
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Mapa não encontrado"
@@ -798,6 +834,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "500": {
             "description": "Erro Interno do Servidor"
           }
@@ -851,6 +890,9 @@
                 "name": "main"
               }
             }
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -916,6 +958,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Agente não encontrado"
           },
@@ -943,6 +988,9 @@
         "responses": {
           "204": {
             "description": "Nenhum Conteúdo"
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Agente não encontrado"
@@ -1043,6 +1091,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Não Encontrado"
           },
@@ -1099,6 +1150,9 @@
                 "name": "main"
               }
             }
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -1168,6 +1222,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Camp ou time não encontrado"
           },
@@ -1195,6 +1252,9 @@
         "responses": {
           "204": {
             "description": "Nenhum Conteúdo"
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Camp não encontrado"
@@ -1295,6 +1355,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Jogador ou time não encontrado"
           },
@@ -1347,6 +1410,9 @@
                 "name": "main"
               }
             }
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -1416,6 +1482,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Jogador, time ou associação não encontrada"
           },
@@ -1443,6 +1512,9 @@
         "responses": {
           "204": {
             "description": "Associação removida com sucesso"
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Associação não encontrada"
@@ -1559,6 +1631,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Mapa, camp ou time não encontrado"
           },
@@ -1627,6 +1702,9 @@
                 "name": "main"
               }
             }
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "500": {
             "description": "Erro Interno do Servidor"
@@ -1704,6 +1782,9 @@
           "400": {
             "description": "Dados inválidos"
           },
+          "401": {
+            "description": "Não autorizado"
+          },
           "404": {
             "description": "Mapa, camp, time ou partida não encontrado"
           },
@@ -1731,6 +1812,9 @@
         "responses": {
           "204": {
             "description": "Partida removida com sucesso"
+          },
+          "401": {
+            "description": "Não autorizado"
           },
           "404": {
             "description": "Partida não encontrada"

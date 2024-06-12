@@ -1,7 +1,8 @@
 const mapsController = require('../controllers/mapa')
+const authMiddleware = require('../middlewares/authMiddleware');
 
 module.exports = (app) => {
-    app.post('/map', mapsController.newMap
+    app.post('/map', authMiddleware, mapsController.newMap
         /*   
             #swagger.tags = ["Mapa"]
             #swagger.summary = 'Cria um novo mapa'
@@ -33,7 +34,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.get('/map', mapsController.getMap
+    app.get('/map', authMiddleware, mapsController.getMap
         /* 
             #swagger.tags = ["Mapa"]
             #swagger.summary = 'Obtém a lista de mapas'
@@ -51,7 +52,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.patch('/map/:id', mapsController.patchMap
+    app.patch('/map/:id', authMiddleware, mapsController.patchMap
         /* 
             #swagger.tags = ["Mapa"]
             #swagger.summary = 'Atualiza informações de um mapa'
@@ -81,7 +82,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.delete('/map/:id', mapsController.deleteMap
+    app.delete('/map/:id', authMiddleware, mapsController.deleteMap
         /* 
             #swagger.tags = ["Mapa"]
             #swagger.summary = 'Remove um mapa'

@@ -1,7 +1,8 @@
 const teamsController = require('../controllers/time')
+const authMiddleware = require('../middlewares/authMiddleware');
 
 module.exports = (app) => {
-    app.post('/team', teamsController.newTeam
+    app.post('/team', authMiddleware, teamsController.newTeam
         /*   
             #swagger.tags = ["Time"]
             #swagger.summary = 'Cria um novo time'
@@ -32,7 +33,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.get('/team', teamsController.getTeam
+    app.get('/team', authMiddleware, teamsController.getTeam
         /* 
             #swagger.tags = ["Time"]
             #swagger.summary = 'Obtém a lista de times'
@@ -50,7 +51,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.patch('/team/:id', teamsController.patchTeam
+    app.patch('/team/:id', authMiddleware, teamsController.patchTeam
         /* 
             #swagger.tags = ["Time"]
             #swagger.summary = 'Atualiza informações de um time'
@@ -95,7 +96,7 @@ module.exports = (app) => {
             }
         */
     )
-    app.delete('/team/:id', teamsController.deleteTeam
+    app.delete('/team/:id', authMiddleware, teamsController.deleteTeam
         /* 
             #swagger.tags = ["Time"]
             #swagger.summary = 'Remove um time'

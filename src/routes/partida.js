@@ -1,7 +1,8 @@
 const partidasController = require('../controllers/partida');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 module.exports = (app) => {
-    app.post('/partidas', partidasController.newPartida
+    app.post('/partidas', authMiddleware, partidasController.newPartida
         /*   
             #swagger.tags = ["Partidas"]
             #swagger.summary = 'Insere uma nova partida'
@@ -44,7 +45,7 @@ module.exports = (app) => {
             }
         */
     );
-    app.get('/partidas', partidasController.getPartidas
+    app.get('/partidas', authMiddleware, partidasController.getPartidas
         /* 
             #swagger.tags = ["Partidas"]
             #swagger.summary = 'Obtém a lista de partidas'
@@ -67,7 +68,7 @@ module.exports = (app) => {
             }
         */
     );
-    app.patch('/partidas/:id', partidasController.patchPartida
+    app.patch('/partidas/:id', authMiddleware, partidasController.patchPartida
         /* 
             #swagger.tags = ["Partidas"]
             #swagger.summary = 'Atualiza informações de uma partida'
@@ -105,7 +106,7 @@ module.exports = (app) => {
             }
         */
     );
-    app.delete('/partidas/:id', partidasController.deletePartida
+    app.delete('/partidas/:id', authMiddleware, partidasController.deletePartida
         /* 
             #swagger.tags = ["Partidas"]
             #swagger.summary = 'Remove uma partida'

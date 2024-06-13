@@ -2,7 +2,7 @@ const usuariosController = require('../controllers/usuario')
 const authMiddleware = require('../middlewares/authMiddleware');
 
 module.exports = (app) => {
-    app.post('/user', authMiddleware, usuariosController.newUser
+    app.post('/user', usuariosController.newUser
         /*   
             #swagger.tags = ["Usuário"]
             #swagger.summary = 'Cria um novo usuário'

@@ -4,7 +4,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 module.exports = (app) => {
     app.post('/jogadorestimes', authMiddleware, jogadoresTimesController.newJogadoresTimes
         /*   
-            #swagger.tags = ["JogadoresTimes"]
+            #swagger.tags = ["Jogadores Times"]
             #swagger.summary = 'Associa um jogador a um time'
             #swagger.parameters['json'] = {
                 in: 'body',
@@ -42,7 +42,7 @@ module.exports = (app) => {
     );
     app.get('/jogadorestimes', authMiddleware, jogadoresTimesController.getJogadoresTimes
         /* 
-            #swagger.tags = ["JogadoresTimes"]
+            #swagger.tags = ["Jogadores Times"]
             #swagger.summary = 'Obtém a lista de associações de jogadores a times'
             #swagger.responses[200] = {
                 description: 'Lista de associações',
@@ -61,7 +61,7 @@ module.exports = (app) => {
     );
     app.patch('/jogadorestimes/:id', authMiddleware, jogadoresTimesController.patchJogadoresTimes
         /* 
-            #swagger.tags = ["JogadoresTimes"]
+            #swagger.tags = ["Jogadores Times"]
             #swagger.summary = 'Atualiza informações de uma associação de jogador a time'
             #swagger.parameters['id'] = {
                 in: 'path',
@@ -97,7 +97,7 @@ module.exports = (app) => {
     );
     app.delete('/jogadorestimes/:id', authMiddleware, jogadoresTimesController.deleteJogadoresTimes
         /* 
-            #swagger.tags = ["JogadoresTimes"]
+            #swagger.tags = ["Jogadores Times"]
             #swagger.summary = 'Remove uma associação de jogador a time'
             #swagger.parameters['id'] = {
                 in: 'path',

@@ -34,7 +34,7 @@ const getMap = async () => {
         const result = await db.query(sql_get, []);
         return {
             total: result.rows.length,
-            usuarios: result.rows
+            mapa: result.rows
         };
     } catch (error) {
         console.error('Erro ao obter os mapas:', error);

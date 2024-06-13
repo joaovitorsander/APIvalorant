@@ -26,7 +26,7 @@ const getTeam = async () => {
         const result = await db.query(sql_get, []);
         return {
             total: result.rows.length,
-            usuarios: result.rows
+            times: result.rows
         };
     } catch (error) {
         console.error('Erro ao obter os times:', error);
